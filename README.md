@@ -1,2 +1,39 @@
 # Ifterious-Movie-Success-Predictor
-FYP project 
+Welcome to the Ifterious Movie Success Predictor, a project developed for my final year project. This project aims to predict the success of movies based on various factors, including the actors involved and the movie's trailer.
+
+# Features
+**Movie Success Prediction**: Predicts the success of a movie based on its trailer using machine learning models.
+
+**Actor Scoring**: Scores actors based on their past performances in movies.
+
+**Facial Recognition**: Detects and recognizes faces in images to match them with actors in the database.
+
+# Technologies Used
+- Python
+- Streamlit
+- PyTube
+- Pandas
+- NumPy
+- scikit-learn
+- PyTorch
+- Plotly
+
+# Setup Instructions
+1. Clone the repository: `git clone https://github.com/your-username/Ifterious-Movie-Success-Predictor.git`
+2. Install the required dependencies: `pip install -r requirements.txt`
+3. Run the Streamlit app: `streamlit run app.py`
+
+# Usage
+- **Home Page**: Displays a welcome message and information about the project.
+- **YouTube Movie Actor's Score System**: Allows users to enter a YouTube trailer link to get information about the movie and its actors.
+- **Actor Score with Images**: Allows users to upload images and get the detected actor's information and potential impact on a movie's success.
+- **About**: Provides information about the project and its purpose.
+- **Contact**: Displays contact information.
+
+# Contributors
+- Ifham Ahmed Khan
+- Asad Iqbal
+- Abdul Aziz
+
+# License
+This project is licensed under the MIT License - see the LICENSE file for details.
