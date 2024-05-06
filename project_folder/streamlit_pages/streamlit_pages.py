@@ -9,7 +9,7 @@ class MultiPage:
         self.pages[name] = func
 
     def run(self):
-        page = st.sidebar.selectbox('Navigation', list(self.pages.keys()))
+        page = st.sidebar.selectbox('Menu', list(self.pages.keys()))
         self.pages[page]()
 
 

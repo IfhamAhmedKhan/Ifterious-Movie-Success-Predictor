@@ -25,7 +25,20 @@ movies_actors = {
 }
 
 def home():
-    st.header("Welcome to Ifterious Movie Success Predictor")
+    st.markdown(
+        """
+        <head>
+        <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+          <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+          />
+        </head>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown('<h1 class="animate__animated animate__fadeIn" style="text-align: center;">Welcome to Ifterious Movie Success Predictor</h1>', unsafe_allow_html=True)
 
     st.write(
         """
@@ -33,32 +46,55 @@ def home():
         .center-content {
             text-align: center;
         }
+        
         </style>
+        
         <div class="row center-content">
-            <div class="col-md-4">
+            <div class="col-md-4" style= "border: 2px solid black; border-radius: 25px; padding: 5px;">
                 <div class="card">
                     <img src="https://upload.wikimedia.org/wikipedia/en/e/e0/The_Amazing_Spider-Man_%28film%29_poster.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title" text-align="center">Movie Title: The Amazing Spider-Man</h5>
-                        <p class="card-text">Description: Peter Parker, a shy and brilliant high school student, gains extraordinary spider-like abilities after a fateful bite. As he navigates adolescence, Peter must learn to use his newfound powers for good while facing personal challenges and battling dangerous villains that threaten his city..</p>
+                        <p class="card-text" id="movie-description">Description: Peter Parker, a shy and brilliant high school student, gains extraordinary spider-like abilities after a fateful bite. As he navigates adolescence, Peter must learn to use his newfound powers for good while facing personal challenges and battling dangerous villains that threaten his city..</p>
+                        <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star-half'></i>
+        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" style= "border: 2px solid black; border-radius: 25px; padding: 5px;">
                 <div class="card">
                     <img src="https://upload.wikimedia.org/wikipedia/en/a/a9/Black_Adam_%28film%29_poster.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Movie Title: Black Adam</h5>
                         <p class="card-text">Description: Kahndaq, a land ravaged by tyranny. Teth-Adam, a man desperate to save his family, seeks the power of champions. Yet, the magic corrupts, twisting him into Black Adam. Centuries later, archaeologists unleash his fury. Now, Black Adam must confront his past and choose: remain a slave to rage or become the hero Kahndaq needs.</p>
+                        <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class="bx bx-star"></i>
+        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" style= "border: 2px solid black; border-radius: 25px; padding: 5px;">
                 <div class="card">
                     <img src="https://m.media-amazon.com/images/M/MV5BOTIzYmUyMmEtMWQzNC00YzExLTk3MzYtZTUzYjMyMmRiYzIwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX1000_.jpg" class="card-img-top" alt="..." width="250" height="380">
                     <div class="card-body">
                         <h5 class="card-title">Movie Title: Fast & Furious Presents: Hobbs & Shaw</h5>
                         <p class="card-text">Description: Worlds collide when DSS agent Luke Hobbs and rogue assassin Deckard Shaw are forced to team up against a cyber-genetically enhanced threat. From Los Angeles to London, these unlikely allies ignite a trail of high-octane action and witty banter.  But can they put their differences aside to save the world?</p>
+                        <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star-half'></i>
+        </div>
                     </div>
                 </div>
             </div>
@@ -68,48 +104,63 @@ def home():
 
 def about():
     st.write(
-        """
-        <style>
-        .center-content {
-            text-align: center;
-        }
-        </style>
-        <div class="row center-content">
-            <h1>About Ifterious Movie Success Predictor</h1>
-            <p>Ifterious Movie Success Predictor is a project aimed at predicting the success of movies based on various factors, including actor performance. Using machine learning and data analysis techniques, we strive to provide insights into what makes a movie successful in today's competitive entertainment industry.</p>
-            <h1>Our Mission</h1>
-            <p>Our mission is to help filmmakers, producers, and movie enthusiasts understand the dynamics behind a movie's success. By analyzing data such as box office performance, IMDb scores, and actor impact, we aim to empower decision-makers to make informed choices in their movie production and selection processes.</p>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://ifterious-tech.netlify.app/main_web/bq-final-project-images--main/IMG_20211027_234719.jpg" class="card-img-top" alt="..." width="250" height="380">
-                    <div class="card-body">
-                        <h5 class="card-title" text-align="center">Name: Ifham Ahmed Khan</h5>
-                        <p class="card-text">Email: ifham.khan105@gmail.com</p>
-                        <p class="card-text">Phone: 0316-1611907</p>
-                    </div>
+    """
+    <style>
+    .center-content {
+        text-align: center;
+    }
+
+    .team-row {
+        display: flex;
+        justify-content: center; /* Center the cards horizontally */
+        align-items: flex-start; /* Align items at the start of the cross axis (top) */
+        flex-wrap: wrap;
+        margin-top: 20px; /* Add margin at the top for spacing */
+    }
+
+    .card {
+        width: 250px;
+        margin: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .card-body {
+        padding: 15px; /* Add padding inside the card body for spacing */
+    }
+    </style>
+
+    <div class="center-content"> 
+        <h1>About Ifterious Movie Success Predictor</h1>
+        <p>Ifterious Movie Success Predictor is a project aimed at predicting the success of movies based on various factors, including actor performance. Using machine learning and data analysis techniques, we strive to provide insights into what makes a movie successful in today's competitive entertainment industry.</p>
+        <h1>Our Mission</h1>
+        <p>Our mission is to help filmmakers, producers, and movie enthusiasts understand the dynamics behind a movie's success. By analyzing data such as box office performance, IMDb scores, and actor impact, we aim to empower decision-makers to make informed choices in their movie production and selection processes.</p>
+        <div class="team-row">  
+            <div class="card">
+                <img src="https://ifterious-tech.netlify.app/main_web/bq-final-project-images--main/IMG_20211027_234719.jpg" class="card-img-top" alt="..." width="250" height="380">
+                <div class="card-body">
+                    <h5 class="card-title" text-align="center">Name: Ifham Ahmed Khan</h5>
+                    <p class="card-text">Email: ifham.khan105@gmail.com</p>
+                    <p class="card-text">Phone: 0316-1611907</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/a/a9/Black_Adam_%28film%29_poster.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Name: Asad Iqbal</h5>
-                        <p class="card-text">Details: ...</p>
-                    </div>
+            <div class="card">
+                <img src="https://scontent.fkhi6-1.fna.fbcdn.net/v/t39.30808-6/342537613_150904134366834_7575676873845715537_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFoSTl3Veu9Hfk8CtA7UrgjLNuNlzyA_CYs242XPID8Jhpywh8aUtp6saH_iZfef9FvaRqxIWJmEHVjZa2-9Twx&_nc_ohc=mFxuUd30cRkQ7kNvgHTK14P&_nc_ht=scontent.fkhi6-1.fna&oh=00_AfCK0DxAh8rlypTKb5Z_aX7YJWhdLyerhi9NkXCnNLAEPg&oe=663EC465" class="card-img-top" alt="..." width="250" height="380">
+                <div class="card-body" >
+                    <h5 class="card-title">Name: Asad Iqbal</h5>
+                    <p class="card-text">Details: ...</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://m.media-amazon.com/images/M/MV5BOTIzYmUyMmEtMWQzNC00YzExLTk3MzYtZTUzYjMyMmRiYzIwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX1000_.jpg" class="card-img-top" alt="..." width="250" height="380">
-                    <div class="card-body">
-                        <h5 class="card-title">Name: Abdul Aziz</h5>
-                        <p class="card-text">Details: ...</p>
-                    </div>
+            <div class="card">
+                <img src="https://m.media-amazon.com/images/M/MV5BOTIzYmUyMmEtMWQzNC00YzExLTk3MzYtZTUzYjMyMmRiYzIwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX1000_.jpg" class="card-img-top" alt="..." width="250" height="380">
+                <div class="card-body">
+                    <h5 class="card-title">Name: Abdul Aziz</h5>
+                    <p class="card-text">Details: ...</p>
                 </div>
             </div>
         </div>
-        """
-    , unsafe_allow_html=True)
+    </div> 
+    """, unsafe_allow_html=True)
+
 
 def YT_Actor_Score():
     # Page title
