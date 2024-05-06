@@ -20,27 +20,96 @@ movies_actors = {
     "Mission: Impossible": ["Tom Cruise", "Jeremy Renner"],
     "Hobbs & Shaw": ["Dwayne Johnson", "Jason Statham"],
     "Avengers": ["Robert Downey Jr.", "Chris Evans"],
-    "AMAZING SPIDER-MAN": ["Andrew Garfield", "Emma Stone"]
+    "AMAZING SPIDER-MAN": ["Andrew Garfield", "Emma Stone"],
+    "Batman v Superman": ["Henry Cavil", "Ben Affleck"]
 }
 
 def home():
     st.header("Welcome to Ifterious Movie Success Predictor")
 
-    # Display the image and text for the movie "Amazing Spiderman"
-    st.image("movie_banner/amazing_spiderman.jpg", use_column_width=True)
-    st.write("Movie: The Amazing Spider-Man")
-    st.write("Description: The story of Spider-Man's origin, focusing on his high school years and his first encounter with the Lizard.")
-
+    st.write(
+        """
+        <style>
+        .center-content {
+            text-align: center;
+        }
+        </style>
+        <div class="row center-content">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/e/e0/The_Amazing_Spider-Man_%28film%29_poster.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title" text-align="center">Movie Title: The Amazing Spider-Man</h5>
+                        <p class="card-text">Description: Peter Parker, a shy and brilliant high school student, gains extraordinary spider-like abilities after a fateful bite. As he navigates adolescence, Peter must learn to use his newfound powers for good while facing personal challenges and battling dangerous villains that threaten his city..</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/a/a9/Black_Adam_%28film%29_poster.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Movie Title: Black Adam</h5>
+                        <p class="card-text">Description: Kahndaq, a land ravaged by tyranny. Teth-Adam, a man desperate to save his family, seeks the power of champions. Yet, the magic corrupts, twisting him into Black Adam. Centuries later, archaeologists unleash his fury. Now, Black Adam must confront his past and choose: remain a slave to rage or become the hero Kahndaq needs.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://m.media-amazon.com/images/M/MV5BOTIzYmUyMmEtMWQzNC00YzExLTk3MzYtZTUzYjMyMmRiYzIwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX1000_.jpg" class="card-img-top" alt="..." width="250" height="380">
+                    <div class="card-body">
+                        <h5 class="card-title">Movie Title: Fast & Furious Presents: Hobbs & Shaw</h5>
+                        <p class="card-text">Description: Worlds collide when DSS agent Luke Hobbs and rogue assassin Deckard Shaw are forced to team up against a cyber-genetically enhanced threat. From Los Angeles to London, these unlikely allies ignite a trail of high-octane action and witty banter.  But can they put their differences aside to save the world?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        """
+    , unsafe_allow_html=True)
 
 def about():
-    st.write("Welcome to about page")
-    if st.button("Click about"):
-        st.write("Welcome to About page")
-
-def contact():
-    st.write("Welcome to contact page")
-    if st.button("Click Contact"):
-        st.write("Welcome to contact page")
+    st.write(
+        """
+        <style>
+        .center-content {
+            text-align: center;
+        }
+        </style>
+        <div class="row center-content">
+            <h1>About Ifterious Movie Success Predictor</h1>
+            <p>Ifterious Movie Success Predictor is a project aimed at predicting the success of movies based on various factors, including actor performance. Using machine learning and data analysis techniques, we strive to provide insights into what makes a movie successful in today's competitive entertainment industry.</p>
+            <h1>Our Mission</h1>
+            <p>Our mission is to help filmmakers, producers, and movie enthusiasts understand the dynamics behind a movie's success. By analyzing data such as box office performance, IMDb scores, and actor impact, we aim to empower decision-makers to make informed choices in their movie production and selection processes.</p>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://ifterious-tech.netlify.app/main_web/bq-final-project-images--main/IMG_20211027_234719.jpg" class="card-img-top" alt="..." width="250" height="380">
+                    <div class="card-body">
+                        <h5 class="card-title" text-align="center">Name: Ifham Ahmed Khan</h5>
+                        <p class="card-text">Email: ifham.khan105@gmail.com</p>
+                        <p class="card-text">Phone: 0316-1611907</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/a/a9/Black_Adam_%28film%29_poster.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Name: Asad Iqbal</h5>
+                        <p class="card-text">Details: ...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://m.media-amazon.com/images/M/MV5BOTIzYmUyMmEtMWQzNC00YzExLTk3MzYtZTUzYjMyMmRiYzIwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX1000_.jpg" class="card-img-top" alt="..." width="250" height="380">
+                    <div class="card-body">
+                        <h5 class="card-title">Name: Abdul Aziz</h5>
+                        <p class="card-text">Details: ...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        """
+    , unsafe_allow_html=True)
 
 def YT_Actor_Score():
     # Page title
@@ -298,6 +367,5 @@ app.add_page("Home", home)
 app.add_page("YouTube Movie Actor's Score System", YT_Actor_Score)
 app.add_page("Actor Score with Images", Actor_Score_FacialRecognition)
 app.add_page("About", about)
-app.add_page("Contact", contact)
 app.run()
 
