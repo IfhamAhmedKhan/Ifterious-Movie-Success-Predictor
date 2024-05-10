@@ -420,3 +420,5 @@ app.add_page("Actor Score with Images", Actor_Score_FacialRecognition)
 app.add_page("About", about)
 app.run()
 
+
+
