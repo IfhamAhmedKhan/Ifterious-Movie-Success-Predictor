@@ -21,7 +21,11 @@ movies_actors = {
     "Hobbs & Shaw": ["Dwayne Johnson", "Jason Statham"],
     "Avengers": ["Robert Downey Jr.", "Chris Evans"],
     "AMAZING SPIDER-MAN": ["Andrew Garfield", "Emma Stone"],
-    "Batman v Superman": ["Henry Cavil", "Ben Affleck"]
+    "Batman v Superman": ["Henry Cavil", "Ben Affleck"],
+    "Suicide Squad": ["Ben Affleck","Margot Robbie"],
+    "THE SUICIDE SQUAD": ["John Cena","Margot Robbie"],
+    "Birds of Prey": ["Margot Robbie","Rosie Perez"],
+    "Inception" : ["Leonardo DiCaprio", "Tom Hardy"]
 }
 
 def home():
