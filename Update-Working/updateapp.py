@@ -1,43 +1,36 @@
 import streamlit as st
+import base64
 
-def home():
-    # Title
-    st.title("Welcome to Ifterious Movie Success Predictor")
+# Function to load and display the background video
+def add_bg_video(video_path):
+    """Adds a background video to the Streamlit app."""
+    video_file = open(video_path, "rb")
+    video_bytes = video_file.read()
+    data_url = base64.b64encode(video_bytes).decode("utf-8")
+    video_file.close()
 
-    # Container for movie cards
-    st.write(
-        """
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Movie Title 1</h5>
-                        <p class="card-text">Description of Movie 1.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Movie Title 2</h5>
-                        <p class="card-text">Description of Movie 2.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Movie Title 3</h5>
-                        <p class="card-text">Description of Movie 3.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        """
-    , unsafe_allow_html=True)
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url("data:video/mp4;base64,{data_url}");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
-# Display the home page
-home()
+
+# Main Streamlit app
+st.title("My App with Background Video")  # Your app title
+
+# Add the background video (replace 'your_video.mp4' with your actual video file)
+add_bg_video("video.mp4") 
+
+# Rest of your Streamlit content
+st.header("Some Content Over the Video")
+st.write("This is some text that will appear on top of the background video.")
+
+# Add more content, widgets, charts, etc. as needed.

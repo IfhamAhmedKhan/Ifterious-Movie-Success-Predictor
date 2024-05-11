@@ -11,6 +11,40 @@ from sklearn.metrics.pairwise import euclidean_distances
 import torch
 import plotly.express as px
 
+st.set_page_config(
+    page_title="Your App Name",
+    page_icon="Logo-white.png",  
+    layout="centered"
+)
+
+st.markdown(
+    """
+    <style>
+    .video-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        z-index: -1;
+    }
+
+    video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    </style>
+    <div class="video-container">
+        <video autoplay loop muted>
+            <source src="https://i.imgur.com/VqEBtd6.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # Define the dictionary of movies and their corresponding actors
 movies_actors = {
@@ -42,6 +76,8 @@ def home():
         unsafe_allow_html=True
     )
 
+    st.markdown('<div style="text-align: center;"><img src="https://i.imgur.com/PvJhMlM.png" alt="Logo" width="300" height="300"></div>', unsafe_allow_html=True)
+
     st.markdown('<h1 class="animate__animated animate__fadeIn" style="text-align: center;">Welcome to Ifterious Movie Success Predictor</h1>', unsafe_allow_html=True)
 
     st.write(
@@ -50,7 +86,9 @@ def home():
         .center-content {
             text-align: center;
         }
-        
+        .stars {
+            color: gold;
+        }
         </style>
         
         <div class="row center-content">
