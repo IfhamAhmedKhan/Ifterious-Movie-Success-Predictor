@@ -10,6 +10,7 @@ import numpy as np
 from sklearn.metrics.pairwise import euclidean_distances
 import torch
 import plotly.express as px
+import base64
 
 st.set_page_config(
     page_title="Your App Name",
@@ -17,34 +18,45 @@ st.set_page_config(
     layout="centered"
 )
 
-st.markdown(
-    """
-    <style>
-    .video-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
-        z-index: -1;
-    }
+@st.cache_data(show_spinner=False)  
+def get_img_as_base64(file):
+    with open(file, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
 
-    video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    </style>
-    <div class="video-container">
-        <video autoplay loop muted>
-            <source src="https://i.imgur.com/VqEBtd6.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+
+img = get_img_as_base64("flash.jpg")
+
+page_bg_img = f"""
+<style>
+[data-testid="stAppViewContainer"] > .main {{
+background-image: url("https://i.imgur.com/o2gErxv.png");
+background-size: 100%;-
+background-position: top left;
+background-repeat: no-repeat;
+background-attachment: local;
+}}
+
+[data-testid="stSidebar"] > div:first-child {{
+background-image: url("data:image/png;base64,{img}");
+background-size: cover;         /* Ensures the image covers the entire area */
+    background-position: center; 
+    background-repeat: no-repeat;
+}}
+
+[data-testid="stHeader"] {{
+background: rgba(0,0,0,0);
+}}
+
+[data-testid="stToolbar"] {{
+right: 2rem;
+}}
+</style>
+"""
+
+st.markdown(page_bg_img, unsafe_allow_html=True)
+
+
 
 # Define the dictionary of movies and their corresponding actors
 movies_actors = {
@@ -76,9 +88,22 @@ def home():
         unsafe_allow_html=True
     )
 
-    st.markdown('<div style="text-align: center;"><img src="https://i.imgur.com/PvJhMlM.png" alt="Logo" width="300" height="300"></div>', unsafe_allow_html=True)
+    st.markdown('<div style="text-align: left; " ><img src="https://i.imgur.com/PvJhMlM.png" alt="Logo" width="300" height="300"></div>', unsafe_allow_html=True)
 
-    st.markdown('<h1 class="animate__animated animate__fadeIn" style="text-align: center;">Welcome to Ifterious Movie Success Predictor</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="animate__animated animate__fadeIn" style="text-align: left;">Welcome to Ifterious Movie Success Predictor</h1>', unsafe_allow_html=True)
+
+    st.markdown("""
+<style>
+p {
+    font-size: 24px;
+    text-align: left;
+    line-height: 1.5;
+    margin-bottom: 40px;
+}
+</style>
+<p>Explore the world of movies with our<br> interactive app. Analyze movie data,<br> predict actor scores, and dive into<br> fascinating insights.</p><br><br><br><br><br><br><br>
+""", unsafe_allow_html=True)
+
 
     st.write(
         """
@@ -92,6 +117,54 @@ def home():
         </style>
         
         <div class="row center-content">
+        <div class="col-md-4" style= "border: 2px solid black; border-radius: 25px; padding: 5px;">
+                <div class="card">
+                    <img src="https://i.imgur.com/PjlS5r0.jpeg" class="card-img-top" alt="..."  width="250" height="380">
+                    <div class="card-body">
+                        <h5 class="card-title">Movie Title: Dune: Part One</h5>
+                        <p class="card-text">Description: A noble family becomes embroiled in a war for control over the galaxy's most valuable asset while its heir becomes troubled by visions of a dark future.</p>
+                        <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class="bx bx-star"></i>
+        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" style= "border: 2px solid black; border-radius: 25px; padding: 5px;">
+                <div class="card">
+                    <img src="https://m.media-amazon.com/images/M/MV5BYTM3ZTllNzItNTNmOS00NzJiLTg1MWMtMjMxNDc0NmJhODU5XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_.jpg" class="card-img-top" alt="..."  width="250" height="380">
+                    <div class="card-body">
+                        <h5 class="card-title">Movie Title: Kingsman: The Secret Service</h5>
+                        <p class="card-text">Description: A spy organisation recruits a promising street kid into the agency's training program, while a global threat emerges from a twisted tech genius.</p>
+                        <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star-half'></i>
+        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="col-md-4" style= "border: 2px solid black; border-radius: 25px; padding: 5px;">
+                <div class="card">
+                    <img src="https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg" class="card-img-top" alt="..." width="250" height="380">
+                    <div class="card-body">
+                        <h5 class="card-title">Movie Title: Avengers: Endgame</h5>
+                        <p class="card-text">Description: After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.</p>
+                        <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star-half'></i>
+        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-4" style= "border: 2px solid black; border-radius: 25px; padding: 5px;">
                 <div class="card">
                     <img src="https://upload.wikimedia.org/wikipedia/en/e/e0/The_Amazing_Spider-Man_%28film%29_poster.jpg" class="card-img-top" alt="...">
@@ -148,6 +221,10 @@ def about():
     st.write(
     """
     <style>
+    *{
+    color: #FFFACD;
+    }
+
     .center-content {
         text-align: center;
     }
@@ -163,6 +240,7 @@ def about():
     .card {
         width: 250px;
         margin: 10px;
+        background-color:black;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
@@ -186,17 +264,19 @@ def about():
                 </div>
             </div>
             <div class="card">
-                <img src="https://scontent.fkhi6-1.fna.fbcdn.net/v/t39.30808-6/342537613_150904134366834_7575676873845715537_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFoSTl3Veu9Hfk8CtA7UrgjLNuNlzyA_CYs242XPID8Jhpywh8aUtp6saH_iZfef9FvaRqxIWJmEHVjZa2-9Twx&_nc_ohc=mFxuUd30cRkQ7kNvgHTK14P&_nc_ht=scontent.fkhi6-1.fna&oh=00_AfCK0DxAh8rlypTKb5Z_aX7YJWhdLyerhi9NkXCnNLAEPg&oe=663EC465" class="card-img-top" alt="..." width="250" height="380">
+                <img src="https://i.imgur.com/PEz6M2N.jpeg" class="card-img-top" alt="..." width="250" height="380">
                 <div class="card-body" >
                     <h5 class="card-title">Name: Asad Iqbal</h5>
-                    <p class="card-text">Details: ...</p>
+                    <p class="card-text">Email: ...</p>
+                    <p class="card-text">Phone: ...</p>
                 </div>
             </div>
             <div class="card">
                 <img src="https://m.media-amazon.com/images/M/MV5BOTIzYmUyMmEtMWQzNC00YzExLTk3MzYtZTUzYjMyMmRiYzIwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX1000_.jpg" class="card-img-top" alt="..." width="250" height="380">
                 <div class="card-body">
                     <h5 class="card-title">Name: Abdul Aziz</h5>
-                    <p class="card-text">Details: ...</p>
+                    <p class="card-text">Email: ...</p>
+                    <p class="card-text">Phone: ...</p>
                 </div>
             </div>
         </div>
