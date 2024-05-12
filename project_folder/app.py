@@ -11,9 +11,10 @@ from sklearn.metrics.pairwise import euclidean_distances
 import torch
 import plotly.express as px
 import base64
+import shutil
 
 st.set_page_config(
-    page_title="Your App Name",
+    page_title="Ifterious Predictor",
     page_icon="Logo-white.png",  
     layout="centered"
 )
@@ -70,7 +71,7 @@ movies_actors = {
     "Batman v Superman": ["Henry Cavil", "Ben Affleck"],
     "Suicide Squad": ["Ben Affleck","Margot Robbie"],
     "THE SUICIDE SQUAD": ["John Cena","Margot Robbie"],
-    "Birds of Prey": ["Margot Robbie","Rosie Perez"],
+    "BIRDS OF PREY": ["Margot Robbie","Rosie Perez"],
     "Inception" : ["Leonardo DiCaprio", "Tom Hardy"]
 }
 
@@ -244,9 +245,18 @@ def about():
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
+    a {
+        text-decoration: none;
+    }
     .card-body {
         padding: 15px; /* Add padding inside the card body for spacing */
     }
+
+    .card-title {
+        text-align: center; /* Center the card title */
+    }
+
+
     </style>
 
     <div class="center-content"> 
@@ -260,29 +270,44 @@ def about():
                 <div class="card-body">
                     <h5 class="card-title" text-align="center">Name: Ifham Ahmed Khan</h5>
                     <p class="card-text">Email: ifham.khan105@gmail.com</p>
-                    <p class="card-text">Phone: 0316-1611907</p>
+                    <p class="card-text">Phone: +92 316 1611907</p>
+                    <p class="card-text">Github: <a href="https://github.com/IfhamAhmedKhan">IfhamAhmedKhan</a></p>
+                    <p class="card-text">Linkedin: <a href="https://www.linkedin.com/in/ifham-khan-479332278/">Ifham Khan</a></p>
                 </div>
             </div>
             <div class="card">
                 <img src="https://i.imgur.com/PEz6M2N.jpeg" class="card-img-top" alt="..." width="250" height="380">
                 <div class="card-body" >
-                    <h5 class="card-title">Name: Asad Iqbal</h5>
-                    <p class="card-text">Email: ...</p>
-                    <p class="card-text">Phone: ...</p>
+                    <h5 class="card-title">Name: Asad Iqbal</h5><br>
+                    <p class="card-text">Email: asad.iqbal5165@gmail.com</p>
+                    <p class="card-text">Phone: +92 340 2671795</p>
+                    <p class="card-text">Github: <a href="https://github.com/AsadIqbal5165">AsadIqbal5165</a></p>
+                    <p class="card-text">Linkedin: <a href="https://www.linkedin.com/in/asad-iqbal-699803234/">Asad Iqbal</a></p>
                 </div>
             </div>
             <div class="card">
-                <img src="https://m.media-amazon.com/images/M/MV5BOTIzYmUyMmEtMWQzNC00YzExLTk3MzYtZTUzYjMyMmRiYzIwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX1000_.jpg" class="card-img-top" alt="..." width="250" height="380">
+                <img src="https://cdn.vectorstock.com/i/500p/50/18/portrait-photo-icon-vector-31995018.jpg" class="card-img-top" alt="..." width="250" height="380">
                 <div class="card-body">
                     <h5 class="card-title">Name: Abdul Aziz</h5>
-                    <p class="card-text">Email: ...</p>
-                    <p class="card-text">Phone: ...</p>
+                    <p class="card-text">Email: abdulazizk811@gmail.com</p>
+                    <p class="card-text">Phone: +92 337 8057564</p>
+                    <p class="card-text">Github: <a href="https://github.com/abdulazizk2">abdulazizk2</a></p>
+                    <p class="card-text">Linkedin: <a href="">Abdul Aziz</a></p>
                 </div>
             </div>
         </div>
-    </div> 
-    """, unsafe_allow_html=True)
+    </div>
+    <div class="footer">
+        
+        
+    </div>
+    """
+    , unsafe_allow_html=True)
 
+
+
+
+    
 
 def YT_Actor_Score():
     # Page title
@@ -299,6 +324,9 @@ def YT_Actor_Score():
             st.error("Please enter a valid YouTube trailer link.")
         else:
             try:
+                # Create the "downloads" directory if it doesn't exist
+                os.makedirs("downloads", exist_ok=True)
+
                 yt = YouTube(youtube_link)
                 video_title = yt.title
                 st.success(f"Movie: {video_title}")
@@ -363,10 +391,22 @@ def YT_Actor_Score():
 
                 st.write(f"\nCombined Average Score: {combined_avg_score:.2f}%")
 
+                # Delete everything inside the "downloads" folder
+                folder = 'downloads'
+                for filename in os.listdir(folder):
+                    file_path = os.path.join(folder, filename)
+                    try:
+                        if os.path.isfile(file_path) or os.path.islink(file_path):
+                            os.unlink(file_path)
+                        elif os.path.isdir(file_path):
+                            shutil.rmtree(file_path)
+                    except Exception as e:
+                        st.error(f"An error occurred while deleting {file_path}: {e}")
+
+                #st.success("All files in 'downloads' folder deleted successfully!")
+
             except Exception as e:
                 st.error(f"An error occurred: {str(e)}")
-                
-                
 # ---------------------------------
 
 # Function to load actor embeddings and names
