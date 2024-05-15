@@ -16,7 +16,7 @@ import shutil
 
 st.set_page_config(
     page_title="Ifterious Predictor",
-    page_icon="Logo-white.png",  
+    page_icon="Logo-black.png",  
     layout="centered"
 )
 
@@ -27,7 +27,7 @@ def get_img_as_base64(file):
     return base64.b64encode(data).decode()
 
 
-img = get_img_as_base64("flash.jpg")
+img = get_img_as_base64("starwars.jpg")
 
 page_bg_img = f"""
 <style>
@@ -92,7 +92,7 @@ def home():
         unsafe_allow_html=True
     )
 
-    st.markdown('<div style="text-align: left; " ><img src="https://i.imgur.com/PvJhMlM.png" alt="Logo" width="300" height="300"></div>', unsafe_allow_html=True)
+    st.markdown('<div style="text-align: left; " ><img src="https://i.imgur.com/PvJhMlM.png" alt="Logo" width="300" height="300" class="animate__animated animate__fadeInLeft"></div>', unsafe_allow_html=True)
 
     st.markdown('<h1 class="animate__animated animate__fadeIn" style="text-align: left;">Welcome to Ifterious Movie Success Predictor</h1>', unsafe_allow_html=True)
 
@@ -104,8 +104,34 @@ p {
     line-height: 1.5;
     margin-bottom: 40px;
 }
+ @keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: black; }
+}
+
+.typing {
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  line-height: 1.5;
+  color: #FFFACD;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid black; /* Cursor */
+  animation: 
+    typing 4s steps(40, end), 
+    blink-caret 0.75s step-end infinite;
+  display: inline-block;
+  max-width: 100%; /* Ensure the text wraps correctly */
+}
+
+
 </style>
-<p>Explore the world of movies with our<br> interactive app. Analyze movie data,<br> predict actor scores, and dive into<br> fascinating insights.</p><br><br><br><br><br><br><br><br><br><br><br>
+<p class="typing">Explore the world of movies with our project. <br>Analyze movie data, predict actor scores. <br>Let's dive into fascinating insights.</p><br><br><br><br><br><br><br><br><br><br><br><br>
 """, unsafe_allow_html=True)
 
 
@@ -118,13 +144,19 @@ p {
 .stars {
     color: gold;
 }
+.card-title {
+    font-size: 30px;
+}
+.card-text {
+    font-family: 'Great Vibes', cursive;
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <div class="row center-content">
 <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
         <div class="card" >
-            <img src="https://i.imgur.com/PjlS5r0.jpeg" class="card-img-top" alt="..."  width="690" height="380" style="border-radius: 20px;">
+            <img src="https://pbs.twimg.com/media/E8XLP6GXsAsCQ1c.png" class="card-img-top" alt="..."  width="690" height="380" style="border-radius: 20px;">
             <div class="card-body">
                 <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Dune: Part One</h5>
                 <p class="card-text"  style="text-align:center;">Description: A noble family becomes embroiled in a war for control over the galaxy's most valuable asset while its heir becomes troubled by visions of a dark future.</p>
@@ -143,7 +175,7 @@ p {
                 <br><br>
             <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
                 <div class="card">
-                    <img src="https://images.moviesanywhere.com/897ae723da11ee8a2df0aa8191989c24/6547ea47-9560-4f2d-963f-2348afb0bd97.jpg" class="card-img-top" alt="..." width="690" height="380" style="border-radius: 20px;">
+                    <img src="https://images.thedirect.com/media/article_full/newpos_QB7hEyO.jpg" class="card-img-top" alt="..." width="690" height="380" style="border-radius: 20px;">
                     <div class="card-body">
                         <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Zack Snyder's Justice League</h5>
                         <p class="card-text" style="text-align:center;">Description: Determined to ensure that Superman's ultimate sacrifice wasn't in vain, Bruce Wayne recruits a team of metahumans to protect the world from an approaching threat of catastrophic proportions.</p>
@@ -162,7 +194,7 @@ p {
                 <br><br>
                 <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
                 <div class="card">
-                    <img src="https://m.media-amazon.com/images/M/MV5BYTM3ZTllNzItNTNmOS00NzJiLTg1MWMtMjMxNDc0NmJhODU5XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_.jpg" class="card-img-top" alt="..."   width="690" height="380" style="border-radius: 20px;">
+                    <img src="https://images8.alphacoders.com/112/1121819.jpg" class="card-img-top" alt="..."   width="690" height="380" style="border-radius: 20px;">
                     <div class="card-body">
                         <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Kingsman: The Secret Service</h5>
                         <p class="card-text" style="text-align:center;">Description: A spy organisation recruits a promising street kid into the agency's training program, while a global threat emerges from a twisted tech genius.</p>
@@ -181,7 +213,7 @@ p {
                 <br><br>
         <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
                 <div class="card">
-                    <img src="https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg" class="card-img-top" alt="..." width="690" height="380" style="border-radius: 20px;">
+                    <img src="https://images2.alphacoders.com/111/1119554.jpg" class="card-img-top" alt="..." width="690" height="380" style="border-radius: 20px;">
                     <div class="card-body">
                         <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Avengers: Endgame</h5>
                         <p class="card-text" style="text-align:center;">Description: After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.</p>
@@ -200,12 +232,12 @@ p {
                 <br><br>
             <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
                 <div class="card">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/e/e0/The_Amazing_Spider-Man_%28film%29_poster.jpg" class="card-img-top" alt="..."  width="690" height="380" style="border-radius: 20px;">
+                    <img src="https://cinemasiren.com/wp-content/uploads/2014/05/AmazingSpiderMan2Banner.jpg" class="card-img-top" alt="..."  width="690" height="380" style="border-radius: 20px;">
                     <div class="card-body">
-                        <h5 class="card-title" text-align="center" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: The Amazing Spider-Man</h5>
+                        <h5 class="card-title" text-align="center" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: The Amazing Spider-Man 2</h5>
                         <p class="card-text" id="movie-description"  style="text-align:center;">Description: Peter Parker, a shy and brilliant high school student, gains extraordinary spider-like abilities after a fateful bite. As he navigates adolescence, Peter must learn to use his newfound powers for good while facing personal challenges and battling dangerous villains that threaten his city..</p>
                 <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
-                <a href="https://www.youtube.com/watch?v=WLxul0Vzuhk"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
+                <a href="https://www.youtube.com/watch?v=nbp3Ra3Yp74"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
                         <div class="stars">
             <i class='bx bxs-star'></i>
             <i class='bx bxs-star'></i>
@@ -219,7 +251,7 @@ p {
                 <br><br>
             <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
                 <div class="card">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/a/a9/Black_Adam_%28film%29_poster.jpg" class="card-img-top" alt="..."  width="690" height="380" style="border-radius: 20px;">
+                    <img src="https://images2.alphacoders.com/130/1300734.jpg" class="card-img-top" alt="..."  width="690" height="380" style="border-radius: 20px;">
                     <div class="card-body">
                         <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Black Adam</h5>
                         <p class="card-text" style="text-align:center;">Description: Kahndaq, a land ravaged by tyranny. Teth-Adam, a man desperate to save his family, seeks the power of champions. Yet, the magic corrupts, twisting him into Black Adam. Centuries later, archaeologists unleash his fury. Now, Black Adam must confront his past and choose: remain a slave to rage or become the hero Kahndaq needs.</p>
@@ -238,7 +270,7 @@ p {
                 <br><br>
             <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
                 <div class="card">
-                    <img src="https://m.media-amazon.com/images/M/MV5BOTIzYmUyMmEtMWQzNC00YzExLTk3MzYtZTUzYjMyMmRiYzIwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX1000_.jpg" class="card-img-top" alt="..." width="690" height="380" style="border-radius: 20px;">
+                    <img src="https://images.alphacoders.com/130/thumb-1920-1300729.jpg" class="card-img-top" alt="..." width="690" height="380" style="border-radius: 20px;">
                     <div class="card-body">
                         <h5 class="card-title"  style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Fast & Furious Presents: Hobbs & Shaw</h5>
                         <p class="card-text" style="text-align:center;">Description: Worlds collide when DSS agent Luke Hobbs and rogue assassin Deckard Shaw are forced to team up against a cyber-genetically enhanced threat. From Los Angeles to London, these unlikely allies ignite a trail of high-octane action and witty banter.  But can they put their differences aside to save the world?</p>
