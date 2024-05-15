@@ -8,6 +8,7 @@ from PIL import Image
 import cv2
 import numpy as np
 from sklearn.metrics.pairwise import euclidean_distances
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
 import torch
 import plotly.express as px
 import base64
@@ -123,7 +124,7 @@ p {
         <div class="card">
             <img src="https://i.imgur.com/PjlS5r0.jpeg" class="card-img-top" alt="..."  width="250" height="380">
             <div class="card-body">
-                <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: gray">Movie Title: Dune: Part One</h5>
+                <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Dune: Part One</h5>
                 <p class="card-text">Description: A noble family becomes embroiled in a war for control over the galaxy's most valuable asset while its heir becomes troubled by visions of a dark future.</p>
                 <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
                 <a href="https://www.youtube.com/watch?v=n9xhJrPXop4"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
@@ -141,7 +142,7 @@ p {
                 <div class="card">
                     <img src="https://m.media-amazon.com/images/M/MV5BYTM3ZTllNzItNTNmOS00NzJiLTg1MWMtMjMxNDc0NmJhODU5XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_.jpg" class="card-img-top" alt="..."  width="250" height="380">
                     <div class="card-body">
-                        <h5 class="card-title">Movie Title: Kingsman: The Secret Service</h5>
+                        <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Kingsman: The Secret Service</h5>
                         <p class="card-text">Description: A spy organisation recruits a promising street kid into the agency's training program, while a global threat emerges from a twisted tech genius.</p>
                         <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
                 <a href="https://www.youtube.com/watch?v=m4NCribDx4U"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
@@ -159,7 +160,7 @@ p {
                 <div class="card">
                     <img src="https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg" class="card-img-top" alt="..." width="250" height="380">
                     <div class="card-body">
-                        <h5 class="card-title">Movie Title: Avengers: Endgame</h5>
+                        <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Avengers: Endgame</h5>
                         <p class="card-text">Description: After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.</p>
                 <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
                 <a href="https://www.youtube.com/watch?v=TcMBFSGVi1c&t"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
@@ -177,7 +178,7 @@ p {
                 <div class="card">
                     <img src="https://upload.wikimedia.org/wikipedia/en/e/e0/The_Amazing_Spider-Man_%28film%29_poster.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title" text-align="center">Movie Title: The Amazing Spider-Man</h5>
+                        <h5 class="card-title" text-align="center" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: The Amazing Spider-Man</h5>
                         <p class="card-text" id="movie-description">Description: Peter Parker, a shy and brilliant high school student, gains extraordinary spider-like abilities after a fateful bite. As he navigates adolescence, Peter must learn to use his newfound powers for good while facing personal challenges and battling dangerous villains that threaten his city..</p>
                 <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
                 <a href="https://www.youtube.com/watch?v=WLxul0Vzuhk"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
@@ -195,7 +196,7 @@ p {
                 <div class="card">
                     <img src="https://upload.wikimedia.org/wikipedia/en/a/a9/Black_Adam_%28film%29_poster.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Movie Title: Black Adam</h5>
+                        <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Black Adam</h5>
                         <p class="card-text">Description: Kahndaq, a land ravaged by tyranny. Teth-Adam, a man desperate to save his family, seeks the power of champions. Yet, the magic corrupts, twisting him into Black Adam. Centuries later, archaeologists unleash his fury. Now, Black Adam must confront his past and choose: remain a slave to rage or become the hero Kahndaq needs.</p>
                 <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
                 <a href="https://www.youtube.com/watch?v=X0tOpBuYasI&t"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
@@ -213,7 +214,7 @@ p {
                 <div class="card">
                     <img src="https://m.media-amazon.com/images/M/MV5BOTIzYmUyMmEtMWQzNC00YzExLTk3MzYtZTUzYjMyMmRiYzIwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX1000_.jpg" class="card-img-top" alt="..." width="250" height="380">
                     <div class="card-body">
-                        <h5 class="card-title">Movie Title: Fast & Furious Presents: Hobbs & Shaw</h5>
+                        <h5 class="card-title"  style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Fast & Furious Presents: Hobbs & Shaw</h5>
                         <p class="card-text">Description: Worlds collide when DSS agent Luke Hobbs and rogue assassin Deckard Shaw are forced to team up against a cyber-genetically enhanced threat. From Los Angeles to London, these unlikely allies ignite a trail of high-octane action and witty banter.  But can they put their differences aside to save the world?</p>
                 <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
                 <a href="https://www.youtube.com/watch?v=HZ7PAyCDwEg&t"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
@@ -586,12 +587,61 @@ def Actor_Score_FacialRecognition():
         else:
             st.write("No faces detected in one or both images.")
 
+# Load pre-trained model and tokenizer
+@st.cache_resource
+def load_model_and_tokenizer():
+    model = GPT2LMHeadModel.from_pretrained("gpt2")
+    tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+    return model, tokenizer
+
+model, tokenizer = load_model_and_tokenizer()
+
+def generate_text(prompt, max_length, temperature, num_beams):
+    try:
+        input_ids = tokenizer.encode(prompt, return_tensors="pt")
+        output = model.generate(
+            input_ids,
+            max_length=max_length,
+            num_return_sequences=1,
+            pad_token_id=tokenizer.eos_token_id,
+            no_repeat_ngram_size=2,
+            do_sample=True,
+            top_k=50,
+            top_p=0.95,
+            temperature=temperature,
+            repetition_penalty=1.2,
+            num_beams=num_beams,
+            early_stopping=True
+        )
+        generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
+        return generated_text
+    except Exception as e:
+        return str(e)
+
+def Story_Gen():
+    # Streamlit app
+    st.title("Story Generation with GPT-2")
+
+    # User input
+    prompt = st.text_input("Enter a prompt:", "Last night, I made progress on my game development project by")
+
+    # Additional generation parameters
+    max_length = st.slider("Max Length", 50, 500, 200)
+    temperature = st.slider("Temperature", 0.5, 1.5, 0.8)
+    num_beams = st.slider("Number of Beams", 1, 5, 3)
+
+    if st.button("Generate Text"):
+        with st.spinner("Generating..."):
+            generated_text = generate_text(prompt, max_length, temperature, num_beams)
+            st.write(generated_text)
+
 # call app class object
 app = MultiPage()
 # Add pages
 app.add_page("Home", home)
 app.add_page("YouTube Movie Actor's Score System", YT_Actor_Score)
 app.add_page("Actor Score with Images", Actor_Score_FacialRecognition)
+app.add_page("Story generator", Story_Gen)
 app.add_page("About", about)
 app.run()
 
