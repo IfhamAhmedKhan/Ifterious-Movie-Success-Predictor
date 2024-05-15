@@ -65,7 +65,7 @@ movies_actors = {
     "Black Adam": ["Dwayne Johnson", "Aldis Hodge"],
     "Gemini Man": ["Will Smith"],
     "Pirates of the Caribbean": ["Johnny Depp", "Orlando Bloom"],
-    "Mission: Impossible": ["Tom Cruise", "Jeremy Renner"],
+    "Mission: Impossible": ["Tom Cruise", "Rebecca Ferguson"],
     "Hobbs & Shaw": ["Dwayne Johnson", "Jason Statham"],
     "Avengers": ["Robert Downey Jr.", "Chris Evans"],
     "AMAZING SPIDER-MAN": ["Andrew Garfield", "Emma Stone"],
@@ -73,7 +73,9 @@ movies_actors = {
     "Suicide Squad": ["Ben Affleck","Margot Robbie"],
     "THE SUICIDE SQUAD": ["John Cena","Margot Robbie"],
     "BIRDS OF PREY": ["Margot Robbie","Rosie Perez"],
-    "Inception" : ["Leonardo DiCaprio", "Tom Hardy"]
+    "Inception" : ["Leonardo DiCaprio", "Tom Hardy"],
+    "The Matrix" : ["Keanu Reeves","Carrie-Anne Moss"],
+    "John Wick" : ["Keanu Reeves"]
 }
 
 def home():
@@ -103,7 +105,7 @@ p {
     margin-bottom: 40px;
 }
 </style>
-<p>Explore the world of movies with our<br> interactive app. Analyze movie data,<br> predict actor scores, and dive into<br> fascinating insights.</p><br><br><br><br><br><br><br>
+<p>Explore the world of movies with our<br> interactive app. Analyze movie data,<br> predict actor scores, and dive into<br> fascinating insights.</p><br><br><br><br><br><br><br><br><br><br><br>
 """, unsafe_allow_html=True)
 
 
@@ -120,12 +122,12 @@ p {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <div class="row center-content">
-<div class="col-md-4" style= "border: 2px solid black; border-radius: 25px; padding: 5px;">
-        <div class="card">
-            <img src="https://i.imgur.com/PjlS5r0.jpeg" class="card-img-top" alt="..."  width="250" height="380">
+<div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
+        <div class="card" >
+            <img src="https://i.imgur.com/PjlS5r0.jpeg" class="card-img-top" alt="..."  width="690" height="380" style="border-radius: 20px;">
             <div class="card-body">
                 <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Dune: Part One</h5>
-                <p class="card-text">Description: A noble family becomes embroiled in a war for control over the galaxy's most valuable asset while its heir becomes troubled by visions of a dark future.</p>
+                <p class="card-text"  style="text-align:center;">Description: A noble family becomes embroiled in a war for control over the galaxy's most valuable asset while its heir becomes troubled by visions of a dark future.</p>
                 <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
                 <a href="https://www.youtube.com/watch?v=n9xhJrPXop4"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
                 <div class="stars">
@@ -138,12 +140,32 @@ p {
             </div>
         </div>
     </div>
-            <div class="col-md-4" style= "border: 2px solid black; border-radius: 25px; padding: 5px;">
+                <br><br>
+            <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
                 <div class="card">
-                    <img src="https://m.media-amazon.com/images/M/MV5BYTM3ZTllNzItNTNmOS00NzJiLTg1MWMtMjMxNDc0NmJhODU5XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_.jpg" class="card-img-top" alt="..."  width="250" height="380">
+                    <img src="https://images.moviesanywhere.com/897ae723da11ee8a2df0aa8191989c24/6547ea47-9560-4f2d-963f-2348afb0bd97.jpg" class="card-img-top" alt="..." width="690" height="380" style="border-radius: 20px;">
+                    <div class="card-body">
+                        <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Zack Snyder's Justice League</h5>
+                        <p class="card-text" style="text-align:center;">Description: Determined to ensure that Superman's ultimate sacrifice wasn't in vain, Bruce Wayne recruits a team of metahumans to protect the world from an approaching threat of catastrophic proportions.</p>
+                        <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
+                <a href="https://www.youtube.com/watch?v=ui37YKQ9AC4"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
+                <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bx-star'></i>
+        </div>
+                    </div>
+                </div>
+            </div>
+                <br><br>
+                <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
+                <div class="card">
+                    <img src="https://m.media-amazon.com/images/M/MV5BYTM3ZTllNzItNTNmOS00NzJiLTg1MWMtMjMxNDc0NmJhODU5XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_.jpg" class="card-img-top" alt="..."   width="690" height="380" style="border-radius: 20px;">
                     <div class="card-body">
                         <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Kingsman: The Secret Service</h5>
-                        <p class="card-text">Description: A spy organisation recruits a promising street kid into the agency's training program, while a global threat emerges from a twisted tech genius.</p>
+                        <p class="card-text" style="text-align:center;">Description: A spy organisation recruits a promising street kid into the agency's training program, while a global threat emerges from a twisted tech genius.</p>
                         <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
                 <a href="https://www.youtube.com/watch?v=m4NCribDx4U"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
                 <div class="stars">
@@ -156,12 +178,13 @@ p {
                     </div>
                 </div>
             </div>
-        <div class="col-md-4" style= "border: 2px solid black; border-radius: 25px; padding: 5px;">
+                <br><br>
+        <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
                 <div class="card">
-                    <img src="https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg" class="card-img-top" alt="..." width="250" height="380">
+                    <img src="https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg" class="card-img-top" alt="..." width="690" height="380" style="border-radius: 20px;">
                     <div class="card-body">
                         <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Avengers: Endgame</h5>
-                        <p class="card-text">Description: After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.</p>
+                        <p class="card-text" style="text-align:center;">Description: After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.</p>
                 <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
                 <a href="https://www.youtube.com/watch?v=TcMBFSGVi1c&t"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
                         <div class="stars">
@@ -174,12 +197,13 @@ p {
                     </div>
                 </div>
             </div>
-            <div class="col-md-4" style= "border: 2px solid black; border-radius: 25px; padding: 5px;">
+                <br><br>
+            <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
                 <div class="card">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/e/e0/The_Amazing_Spider-Man_%28film%29_poster.jpg" class="card-img-top" alt="...">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/e/e0/The_Amazing_Spider-Man_%28film%29_poster.jpg" class="card-img-top" alt="..."  width="690" height="380" style="border-radius: 20px;">
                     <div class="card-body">
                         <h5 class="card-title" text-align="center" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: The Amazing Spider-Man</h5>
-                        <p class="card-text" id="movie-description">Description: Peter Parker, a shy and brilliant high school student, gains extraordinary spider-like abilities after a fateful bite. As he navigates adolescence, Peter must learn to use his newfound powers for good while facing personal challenges and battling dangerous villains that threaten his city..</p>
+                        <p class="card-text" id="movie-description"  style="text-align:center;">Description: Peter Parker, a shy and brilliant high school student, gains extraordinary spider-like abilities after a fateful bite. As he navigates adolescence, Peter must learn to use his newfound powers for good while facing personal challenges and battling dangerous villains that threaten his city..</p>
                 <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
                 <a href="https://www.youtube.com/watch?v=WLxul0Vzuhk"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
                         <div class="stars">
@@ -192,12 +216,13 @@ p {
                     </div>
                 </div>
             </div>
-            <div class="col-md-4" style= "border: 2px solid black; border-radius: 25px; padding: 5px;">
+                <br><br>
+            <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
                 <div class="card">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/a/a9/Black_Adam_%28film%29_poster.jpg" class="card-img-top" alt="...">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/a/a9/Black_Adam_%28film%29_poster.jpg" class="card-img-top" alt="..."  width="690" height="380" style="border-radius: 20px;">
                     <div class="card-body">
                         <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Black Adam</h5>
-                        <p class="card-text">Description: Kahndaq, a land ravaged by tyranny. Teth-Adam, a man desperate to save his family, seeks the power of champions. Yet, the magic corrupts, twisting him into Black Adam. Centuries later, archaeologists unleash his fury. Now, Black Adam must confront his past and choose: remain a slave to rage or become the hero Kahndaq needs.</p>
+                        <p class="card-text" style="text-align:center;">Description: Kahndaq, a land ravaged by tyranny. Teth-Adam, a man desperate to save his family, seeks the power of champions. Yet, the magic corrupts, twisting him into Black Adam. Centuries later, archaeologists unleash his fury. Now, Black Adam must confront his past and choose: remain a slave to rage or become the hero Kahndaq needs.</p>
                 <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
                 <a href="https://www.youtube.com/watch?v=X0tOpBuYasI&t"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
                         <div class="stars">
@@ -210,12 +235,13 @@ p {
                     </div>
                 </div>
             </div>
-            <div class="col-md-4" style= "border: 2px solid black; border-radius: 25px; padding: 5px;">
+                <br><br>
+            <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
                 <div class="card">
-                    <img src="https://m.media-amazon.com/images/M/MV5BOTIzYmUyMmEtMWQzNC00YzExLTk3MzYtZTUzYjMyMmRiYzIwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX1000_.jpg" class="card-img-top" alt="..." width="250" height="380">
+                    <img src="https://m.media-amazon.com/images/M/MV5BOTIzYmUyMmEtMWQzNC00YzExLTk3MzYtZTUzYjMyMmRiYzIwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX1000_.jpg" class="card-img-top" alt="..." width="690" height="380" style="border-radius: 20px;">
                     <div class="card-body">
                         <h5 class="card-title"  style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Fast & Furious Presents: Hobbs & Shaw</h5>
-                        <p class="card-text">Description: Worlds collide when DSS agent Luke Hobbs and rogue assassin Deckard Shaw are forced to team up against a cyber-genetically enhanced threat. From Los Angeles to London, these unlikely allies ignite a trail of high-octane action and witty banter.  But can they put their differences aside to save the world?</p>
+                        <p class="card-text" style="text-align:center;">Description: Worlds collide when DSS agent Luke Hobbs and rogue assassin Deckard Shaw are forced to team up against a cyber-genetically enhanced threat. From Los Angeles to London, these unlikely allies ignite a trail of high-octane action and witty banter.  But can they put their differences aside to save the world?</p>
                 <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
                 <a href="https://www.youtube.com/watch?v=HZ7PAyCDwEg&t"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
                         <div class="stars">
