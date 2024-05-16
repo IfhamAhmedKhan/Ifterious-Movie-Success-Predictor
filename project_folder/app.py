@@ -13,6 +13,9 @@ import torch
 import plotly.express as px
 import base64
 import shutil
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 
 st.set_page_config(
     page_title="Ifterious Predictor",
@@ -58,33 +61,33 @@ right: 2rem;
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
+def train_model(df):
+    X = df[['num_critic_for_reviews', 'duration', 'num_voted_users', 'num_user_for_reviews', 'movie_facebook_likes', 'director_facebook_likes']]
+    df['success_label'] = (df['imdb_score'] > df['imdb_score'].mean()).astype(int)  
 
+    y = df['success_label']
 
-# Define the dictionary of movies and their corresponding actors
-movies_actors = {
-    "Black Adam": ["Dwayne Johnson", "Aldis Hodge"],
-    "Gemini Man": ["Will Smith"],
-    "Pirates of the Caribbean": ["Johnny Depp", "Orlando Bloom"],
-    "Mission: Impossible": ["Tom Cruise", "Rebecca Ferguson"],
-    "Hobbs & Shaw": ["Dwayne Johnson", "Jason Statham"],
-    "Avengers": ["Robert Downey Jr.", "Chris Evans"],
-    "AMAZING SPIDER-MAN": ["Andrew Garfield", "Emma Stone"],
-    "Batman v Superman": ["Henry Cavil", "Ben Affleck"],
-    "Suicide Squad": ["Ben Affleck","Margot Robbie"],
-    "THE SUICIDE SQUAD": ["John Cena","Margot Robbie"],
-    "BIRDS OF PREY": ["Margot Robbie","Rosie Perez"],
-    "Inception" : ["Leonardo DiCaprio", "Tom Hardy"],
-    "The Matrix" : ["Keanu Reeves","Carrie-Anne Moss"],
-    "John Wick" : ["Keanu Reeves"],
-    "Dune" : ["Rebecca Ferguson", "Jason Momoa"],
-    "Man of Steel" : ["Henry Cavil", "Christopher Meloni"],
-    "Transformers" : ["Mark Wahlberg", "Megan Fox"],
-    "Harry Potter" : ["Daniel Radcliffe", "Emma Watson"],
-    "Fast and Furious" : ["Paul Walker", "Vin Diesel"],
-    "Fast & Furious" : ["Paul Walker", "Vin Diesel"],
-    "FAST X" : ["Paul Walker", "Vin Diesel"],
-    "Aquaman" : ["Jason Momoa", "Amber Heard"]
-}
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    clf = RandomForestClassifier(random_state=42)
+    clf.fit(X_train, y_train)
+
+    y_pred = clf.predict(X_test)
+    # model accuracy 70%
+    accuracy = accuracy_score(y_test, y_pred)
+    #st.write(f"Model Accuracy: {accuracy:.2f}")
+
+    return clf
+
+df = pd.read_csv("movie_metadata.csv")
+
+df['gross'].fillna(df['gross'].mean(), inplace=True)
+df['budget'].fillna(df['budget'].mean(), inplace=True)
+df.dropna(inplace=True)
+df['main_genre'] = df['genres'].apply(lambda x: x.split('|')[0] if '|' in x else x)
+df['success_label'] = (df['imdb_score'] > df['imdb_score'].mean()).astype(int)  
+
+clf = train_model(df)
 
 def home():
     st.markdown(
@@ -438,11 +441,17 @@ def YT_Actor_Score():
                 # Apply the function to the DataFrame
                 df['actor_score'] = df.apply(calculate_actor_score, axis=1)
 
+                # Load the movie-actor data from the CSV file
+                movies_actors = pd.read_csv('movies_actors.csv')
+                movies_actors_dict = {}
+                for _, row in movies_actors.iterrows():
+                    movies_actors_dict[row['Movie']] = row['Actors'].split(',')
+
                 # Initialize actor list
                 actors = None
 
                 # Search for movie in the dictionary
-                for movie, actor_list in movies_actors.items():
+                for movie, actor_list in movies_actors_dict.items():
                     if movie in video_title:
                         actors = actor_list
                         st.info(f"Actors: {', '.join(actors)}")
@@ -476,11 +485,41 @@ def YT_Actor_Score():
                         st.write(f"\n{actor}'s Previous Movies and Scores:")
                         st.table(data[['movie_title', 'imdb_score', 'gross', 'budget', 'actor_score']])
 
+                        # Bar chart for individual movie scores
+                        st.subheader(f"Individual Movie Scores for {actor}")
+                        fig_bar = px.bar(data, x='movie_title', y='actor_score', title=f"{actor}'s Movie Scores")
+                        st.write(fig_bar)
+
                     # Display the average actor scores
                     for actor, avg_score in avg_actor_scores.items():
                         st.write(f"\nAverage Actor Score for {actor}: {avg_score:.2f}%")
 
                     st.write(f"\nCombined Average Score: {combined_avg_score:.2f}%")
+
+                    # Radar chart for overall potential impact
+                    st.subheader("Overall Potential Impact of Actors")
+                    radar_data = pd.DataFrame({
+                        'Actor': list(avg_actor_scores.keys()),
+                        'Impact on Movie Success': list(avg_actor_scores.values())
+                    })
+                    fig_radar = px.line_polar(radar_data, r='Impact on Movie Success', theta='Actor', line_close=True)
+                    st.write(fig_radar)
+
+                    # Box plot for distribution of actor scores
+                    st.subheader("Distribution of Actor Scores")
+                    all_actor_scores = [data['actor_score'] for data in actor_data.values()]
+                    box_data = pd.DataFrame({
+                        'Actor': [actor for actor in actor_data for _ in range(len(actor_data[actor]))],
+                        'Actor Score': np.concatenate(all_actor_scores)
+                    })
+                    fig_box = px.box(box_data, x='Actor', y='Actor Score', title="Actor Score Distribution")
+                    st.write(fig_box)
+
+                    # Heatmap for correlations
+                    st.subheader("Feature Correlation Heatmap")
+                    correlation = df[['imdb_score', 'gross', 'budget', 'actor_score']].corr()
+                    fig_heatmap = px.imshow(correlation, text_auto=True, title="Feature Correlation Heatmap")
+                    st.write(fig_heatmap)
 
                 # Delete everything inside the "downloads" folder
                 folder = 'downloads'
@@ -494,10 +533,10 @@ def YT_Actor_Score():
                     except Exception as e:
                         st.error(f"An error occurred while deleting {file_path}: {e}")
 
-                #st.success("All files in 'downloads' folder deleted successfully!")
-
             except Exception as e:
                 st.error(f"An error occurred: {str(e)}")
+
+
 
 # Function to load actor embeddings and names
 def load_actor_data(embeddings_directory):
