@@ -538,9 +538,8 @@ def calculate_actor_score(row):
 
     return final_score
     
-    
 def Actor_Score_FacialRecognition():
-# Title
+    # Title
     st.title("Face Detection and Recognition")
 
     # File upload for first image
@@ -625,17 +624,36 @@ def Actor_Score_FacialRecognition():
             actor_name_input2 = closest_actor2
 
             # Calculate and display scores
-            actor_data1 = df[df['actor_1_name'].str.contains(actor_name_input1, case=False, na=False)]
-            actor_data2 = df[df['actor_1_name'].str.contains(actor_name_input2, case=False, na=False)]
+            actor_data1 = df[
+                df['actor_1_name'].str.contains(actor_name_input1, case=False, na=False) |
+                df['actor_2_name'].str.contains(actor_name_input1, case=False, na=False) |
+                df['actor_3_name'].str.contains(actor_name_input1, case=False, na=False)
+            ]
+
+            actor_data2 = df[
+                df['actor_1_name'].str.contains(actor_name_input2, case=False, na=False) |
+                df['actor_2_name'].str.contains(actor_name_input2, case=False, na=False) |
+                df['actor_3_name'].str.contains(actor_name_input2, case=False, na=False)
+            ]
 
             if not actor_data1.empty and not actor_data2.empty:
                 # Display individual movie scores for actor 1
                 st.write(f"{actor_name_input1}'s Previous Movies and Scores:")
                 st.table(actor_data1[['movie_title', 'imdb_score', 'gross', 'budget', 'actor_score']])
 
+                # Bar Chart for Actor 1
+                st.write(f"**Bar Chart for {actor_name_input1}'s Movie Scores**")
+                fig1 = px.bar(actor_data1, x='movie_title', y='actor_score', title=f"{actor_name_input1}'s Movie Scores")
+                st.plotly_chart(fig1)
+
                 # Display individual movie scores for actor 2
                 st.write(f"{actor_name_input2}'s Previous Movies and Scores:")
                 st.table(actor_data2[['movie_title', 'imdb_score', 'gross', 'budget', 'actor_score']])
+
+                # Bar Chart for Actor 2
+                st.write(f"**Bar Chart for {actor_name_input2}'s Movie Scores**")
+                fig2 = px.bar(actor_data2, x='movie_title', y='actor_score', title=f"{actor_name_input2}'s Movie Scores")
+                st.plotly_chart(fig2)
 
                 # Calculate and display the overall average score for actor 1
                 actor_avg_score1 = actor_data1['actor_score'].mean()
@@ -649,17 +667,32 @@ def Actor_Score_FacialRecognition():
                 combine_avg = ((actor_avg_score1 + actor_avg_score2) / 2)
                 st.write(f"\nOverall Potential Impact of both actors on Movie's Success: {combine_avg:.2f}%")
 
-                # Create a radar chart for visualization
+                # Radar Chart for Overall Impact
+                st.write("**Radar Chart for Overall Impact**")
                 chart_data = pd.DataFrame({
                     'Actor': [actor_name_input1, actor_name_input2],
                     'Impact on Movie Success': [actor_avg_score1, actor_avg_score2]
                 })
-                fig = px.line_polar(chart_data, r='Impact on Movie Success', theta='Actor', line_close=True)
-                st.write(fig)
+                fig3 = px.line_polar(chart_data, r='Impact on Movie Success', theta='Actor', line_close=True)
+                st.plotly_chart(fig3)
+
+                # Box Plot for Score Distribution
+                st.write("**Box Plot for Score Distribution**")
+                combined_actor_data = pd.concat([actor_data1, actor_data2])
+                fig4 = px.box(combined_actor_data, x='actor_1_name', y='actor_score', title='Score Distribution')
+                st.plotly_chart(fig4)
+
+                # Heatmap for Correlation
+                st.write("**Heatmap for Feature Correlation**")
+                correlation = df[['imdb_score', 'gross', 'budget', 'actor_score']].corr()
+                fig5 = px.imshow(correlation, text_auto=True, title='Feature Correlation')
+                st.plotly_chart(fig5)
 
             else:
-                st.write(f"No data found for {actor_name_input1}. Please check the actor's name.")
-                st.write(f"No data found for {actor_name_input2}. Please check the actor's name.")
+                if actor_data1.empty:
+                    st.write(f"No data found for {actor_name_input1}. Please check the actor's name.")
+                if actor_data2.empty:
+                    st.write(f"No data found for {actor_name_input2}. Please check the actor's name.")
         else:
             st.write("No faces detected in one or both images.")
 
