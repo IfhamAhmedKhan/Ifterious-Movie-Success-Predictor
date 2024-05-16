@@ -75,7 +75,15 @@ movies_actors = {
     "BIRDS OF PREY": ["Margot Robbie","Rosie Perez"],
     "Inception" : ["Leonardo DiCaprio", "Tom Hardy"],
     "The Matrix" : ["Keanu Reeves","Carrie-Anne Moss"],
-    "John Wick" : ["Keanu Reeves"]
+    "John Wick" : ["Keanu Reeves"],
+    "Dune" : ["Rebecca Ferguson", "Jason Momoa"],
+    "Man of Steel" : ["Henry Cavil", "Christopher Meloni"],
+    "Transformers" : ["Mark Wahlberg", "Megan Fox"],
+    "Harry Potter" : ["Daniel Radcliffe", "Emma Watson"],
+    "Fast and Furious" : ["Paul Walker", "Vin Diesel"],
+    "Fast & Furious" : ["Paul Walker", "Vin Diesel"],
+    "FAST X" : ["Paul Walker", "Vin Diesel"],
+    "Aquaman" : ["Jason Momoa", "Amber Heard"]
 }
 
 def home():
@@ -377,10 +385,6 @@ def about():
     , unsafe_allow_html=True)
 
 
-
-
-    
-
 def YT_Actor_Score():
     # Page title
     st.title("Ifterious Movie Score Prediction")
@@ -402,11 +406,6 @@ def YT_Actor_Score():
                 yt = YouTube(youtube_link)
                 video_title = yt.title
                 st.success(f"Movie: {video_title}")
-
-                for movie, actors in movies_actors.items():
-                    if movie in video_title:
-                        st.info(f"Actors: {', '.join(actors)}")
-                        break
 
                 # Load the dataset
                 df = pd.read_csv("movie_metadata.csv")
@@ -439,29 +438,49 @@ def YT_Actor_Score():
                 # Apply the function to the DataFrame
                 df['actor_score'] = df.apply(calculate_actor_score, axis=1)
 
-                # Get the data for the actors
-                actor_data = {}
-                for actor in set(actors):
-                    actor_data[actor] = df[df['actor_1_name'].str.contains(actor, case=False, na=False)]
+                # Initialize actor list
+                actors = None
 
-                # Calculate the average actor score for each actor
-                avg_actor_scores = {}
-                for actor, data in actor_data.items():
-                    avg_actor_scores[actor] = data['actor_score'].mean()
+                # Search for movie in the dictionary
+                for movie, actor_list in movies_actors.items():
+                    if movie in video_title:
+                        actors = actor_list
+                        st.info(f"Actors: {', '.join(actors)}")
+                        break
 
-                # Calculate the combined average score
-                combined_avg_score = sum(avg_actor_scores.values()) / len(avg_actor_scores)
+                # If not found in dictionary, search in the dataset
+                if not actors:
+                    movie_row = df[df['movie_title'].str.contains(video_title, case=False, na=False)]
+                    if not movie_row.empty:
+                        actors = [movie_row.iloc[0]['actor_1_name'], movie_row.iloc[0]['actor_2_name'], movie_row.iloc[0]['actor_3_name']]
+                        st.info(f"Actors found in dataset: {', '.join(actors)}")
 
-                # Display individual movie scores for each actor
-                for actor, data in actor_data.items():
-                    st.write(f"\n{actor}'s Previous Movies and Scores:")
-                    st.table(data[['movie_title', 'imdb_score', 'gross', 'budget', 'actor_score']])
+                if actors:
+                    # Get the data for the actors
+                    actor_data = {}
+                    for actor in set(actors):
+                        actor_data[actor] = df[(df['actor_1_name'].str.contains(actor, case=False, na=False)) |
+                                               (df['actor_2_name'].str.contains(actor, case=False, na=False)) |
+                                               (df['actor_3_name'].str.contains(actor, case=False, na=False))]
 
-                # Display the average actor scores
-                for actor, avg_score in avg_actor_scores.items():
-                    st.write(f"\nAverage Actor Score for {actor}: {avg_score:.2f}%")
+                    # Calculate the average actor score for each actor
+                    avg_actor_scores = {}
+                    for actor, data in actor_data.items():
+                        avg_actor_scores[actor] = data['actor_score'].mean()
 
-                st.write(f"\nCombined Average Score: {combined_avg_score:.2f}%")
+                    # Calculate the combined average score
+                    combined_avg_score = sum(avg_actor_scores.values()) / len(avg_actor_scores)
+
+                    # Display individual movie scores for each actor
+                    for actor, data in actor_data.items():
+                        st.write(f"\n{actor}'s Previous Movies and Scores:")
+                        st.table(data[['movie_title', 'imdb_score', 'gross', 'budget', 'actor_score']])
+
+                    # Display the average actor scores
+                    for actor, avg_score in avg_actor_scores.items():
+                        st.write(f"\nAverage Actor Score for {actor}: {avg_score:.2f}%")
+
+                    st.write(f"\nCombined Average Score: {combined_avg_score:.2f}%")
 
                 # Delete everything inside the "downloads" folder
                 folder = 'downloads'
@@ -479,7 +498,6 @@ def YT_Actor_Score():
 
             except Exception as e:
                 st.error(f"An error occurred: {str(e)}")
-# ---------------------------------
 
 # Function to load actor embeddings and names
 def load_actor_data(embeddings_directory):
