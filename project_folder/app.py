@@ -319,7 +319,7 @@ def generate_text(prompt, max_length, temperature, num_beams):
             temperature=temperature,
             repetition_penalty=1.2,
             num_beams=num_beams,
-            early_stopping=True
+            early_stopping=False
         )
         
         # Decode the generated text
@@ -336,13 +336,15 @@ def Story_Gen():
     
     # Hyperparameter sliders
     max_length = st.slider("Max Length", 50, 500, 200)
-    temperature = st.slider("Temperature", 0.5, 1.5, 0.8)
+    temperature = st.slider("Temperature", 0.5, 1.5, 1.0)
     num_beams = st.slider("Number of Beams", 1, 5, 3)
     
     if st.button("Generate Text"):
         with st.spinner("Generating..."):
             generated_text = generate_text(prompt, max_length, temperature, num_beams)
             st.write(generated_text)
+
+
 
 def calculate_actor_score(row):
     imdb_weight = 0.5
