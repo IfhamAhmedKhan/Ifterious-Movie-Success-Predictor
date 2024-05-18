@@ -16,6 +16,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
+st.cache_data.clear()
+
 st.set_page_config(
     page_title="Ifterious Predictor",
     page_icon="Logo-black.png",  
@@ -75,8 +77,8 @@ def load_data():
     final_rows = df.shape[0]
     
     # Log the number of rows dropped
-    st.write(f"Rows before dropping NA: {initial_rows}")
-    st.write(f"Rows after dropping NA: {final_rows}")
+    #st.write(f"Rows before dropping NA: {initial_rows}")
+    #st.write(f"Rows after dropping NA: {final_rows}")
     
     df['main_genre'] = df['genres'].apply(lambda x: x.split('|')[0] if '|' in x else x)
     df['success_label'] = (df['imdb_score'] > df['imdb_score'].mean()).astype(int)
@@ -313,7 +315,10 @@ def about():
     st.write(
     """
     <style>
-    h1,p,h2 {
+    h1, h2 {
+        color: white;
+    }
+    p {
         color: #FFFACD;
     }
 
