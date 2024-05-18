@@ -18,15 +18,16 @@ from sklearn.metrics import accuracy_score
 
 st.set_page_config(
     page_title="Ifterious Predictor",
-    page_icon="Logo-black.png",
+    page_icon="Logo-black.png",  
     layout="centered"
 )
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False)  
 def get_img_as_base64(file):
     with open(file, "rb") as f:
         data = f.read()
     return base64.b64encode(data).decode()
+
 
 img = get_img_as_base64("starwars.jpg")
 
@@ -34,20 +35,23 @@ page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
 background-image: url("https://i.imgur.com/o2gErxv.png");
-background-size: 100%;
+background-size: 100%;-
 background-position: top left;
 background-repeat: no-repeat;
 background-attachment: local;
 }}
+
 [data-testid="stSidebar"] > div:first-child {{
 background-image: url("data:image/png;base64,{img}");
-background-size: cover;
-background-position: center;
-background-repeat: no-repeat;
+background-size: cover;         /* Ensures the image covers the entire area */
+    background-position: center; 
+    background-repeat: no-repeat;
 }}
+
 [data-testid="stHeader"] {{
 background: rgba(0,0,0,0);
 }}
+
 [data-testid="stToolbar"] {{
 right: 2rem;
 }}
@@ -61,7 +65,19 @@ def load_data():
     df = pd.read_csv("movie_metadata.csv")
     df['gross'].fillna(df['gross'].mean(), inplace=True)
     df['budget'].fillna(df['budget'].mean(), inplace=True)
+    
+    # Count rows before dropping NA
+    initial_rows = df.shape[0]
+    
     df.dropna(inplace=True)
+    
+    # Count rows after dropping NA
+    final_rows = df.shape[0]
+    
+    # Log the number of rows dropped
+    st.write(f"Rows before dropping NA: {initial_rows}")
+    st.write(f"Rows after dropping NA: {final_rows}")
+    
     df['main_genre'] = df['genres'].apply(lambda x: x.split('|')[0] if '|' in x else x)
     df['success_label'] = (df['imdb_score'] > df['imdb_score'].mean()).astype(int)
     return df
@@ -86,109 +102,301 @@ def home():
         """
         <head>
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+          <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+          />
         </head>
         """,
         unsafe_allow_html=True
     )
 
-    st.markdown('<div style="text-align: left;"><img src="https://i.imgur.com/PvJhMlM.png" alt="Logo" width="300" height="300" class="animate__animated animate__fadeInLeft"></div>', unsafe_allow_html=True)
+    st.markdown('<div style="text-align: left; " ><img src="https://i.imgur.com/PvJhMlM.png" alt="Logo" width="300" height="300" class="animate__animated animate__fadeInLeft"></div>', unsafe_allow_html=True)
+
     st.markdown('<h1 class="animate__animated animate__fadeIn" style="text-align: left;">Welcome to Ifterious Movie Success Predictor</h1>', unsafe_allow_html=True)
-    st.markdown("""
-        <style>
-        p {
-            font-size: 24px;
-            text-align: left;
-            line-height: 1.5;
-            margin-bottom: 40px;
-        }
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        @keyframes blink-caret {
-            from, to { border-color: transparent; }
-            50% { border-color: black; }
-        }
-        .typing {
-            font-family: Arial, sans-serif;
-            font-size: 24px;
-            line-height: 1.5;
-            color: #FFFACD;
-            white-space: nowrap;
-            overflow: hidden;
-            border-right: 3px solid black;
-            animation: typing 4s steps(40, end), blink-caret 0.75s step-end infinite;
-            display: inline-block;
-            max-width: 100%;
-        }
-        </style>
-        <p class="typing">Explore the world of movies with our project. <br>Analyze movie data, predict actor scores. <br>Let's dive into fascinating insights.</p><br><br><br><br><br><br><br><br><br><br><br><br>
-    """, unsafe_allow_html=True)
 
     st.markdown("""
-        <style>
-        .center-content {
-            text-align: center;
-        }
-        .stars {
-            color: gold;
-        }
-        .card-title {
-            font-size: 30px;
-        }
-        .card-text {
-            font-family: 'Great Vibes', cursive;
-        }
-        </style>
-        <div class="row center-content">
-        <!-- Add your movie cards here -->
+<style>
+p {
+    font-size: 24px;
+    text-align: left;
+    line-height: 1.5;
+    margin-bottom: 40px;
+}
+ @keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: black; }
+}
+
+.typing {
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  line-height: 1.5;
+  color: #FFFACD;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid black; /* Cursor */
+  animation: 
+    typing 4s steps(40, end), 
+    blink-caret 0.75s step-end infinite;
+  display: inline-block;
+  max-width: 100%; /* Ensure the text wraps correctly */
+}
+
+
+</style>
+<p class="typing">Explore the world of movies with our project. <br>Analyze movie data, predict actor scores. <br>Let's dive into fascinating insights.</p><br><br><br><br><br><br><br><br><br><br><br><br>
+""", unsafe_allow_html=True)
+
+
+    st.markdown("""
+<head>
+<style>
+.center-content {
+    text-align: center;
+}
+.stars {
+    color: gold;
+}
+.card-title {
+    font-size: 30px;
+}
+.card-text {
+    font-family: 'Great Vibes', cursive;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<div class="row center-content">
+<div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
+        <div class="card" >
+            <img src="https://shop.legendary.com/cdn/shop/files/Dune-min.png" class="card-img-top" alt="..."  width="690" height="380" style="border-radius: 20px;">
+            <div class="card-body">
+                <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Dune: Part One</h5>
+                <p class="card-text"  style="text-align:center;">Description: A noble family becomes embroiled in a war for control over the galaxy's most valuable asset while its heir becomes troubled by visions of a dark future.</p>
+                <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
+                <a href="https://www.youtube.com/watch?v=n9xhJrPXop4"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
+                <div class="stars">
+    <i class='bx bxs-star'></i>
+    <i class='bx bxs-star'></i>
+    <i class='bx bxs-star'></i>
+    <i class='bx bxs-star'></i>
+    <i class="bx bx-star"></i>
+</div>
+            </div>
         </div>
-    """, unsafe_allow_html=True)
+    </div>
+                <br><br>
+            <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
+                <div class="card">
+                    <img src="https://images.thedirect.com/media/article_full/newpos_QB7hEyO.jpg" class="card-img-top" alt="..." width="690" height="380" style="border-radius: 20px;">
+                    <div class="card-body">
+                        <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Zack Snyder's Justice League</h5>
+                        <p class="card-text" style="text-align:center;">Description: Determined to ensure that Superman's ultimate sacrifice wasn't in vain, Bruce Wayne recruits a team of metahumans to protect the world from an approaching threat of catastrophic proportions.</p>
+                        <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
+                <a href="https://www.youtube.com/watch?v=ui37YKQ9AC4"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
+                <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bx-star'></i>
+        </div>
+                    </div>
+                </div>
+            </div>
+                <br><br>
+                <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
+                <div class="card">
+                    <img src="https://images8.alphacoders.com/112/1121819.jpg" class="card-img-top" alt="..."   width="690" height="380" style="border-radius: 20px;">
+                    <div class="card-body">
+                        <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Kingsman: The Secret Service</h5>
+                        <p class="card-text" style="text-align:center;">Description: A spy organisation recruits a promising street kid into the agency's training program, while a global threat emerges from a twisted tech genius.</p>
+                        <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
+                <a href="https://www.youtube.com/watch?v=m4NCribDx4U"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
+                <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star-half'></i>
+        </div>
+                    </div>
+                </div>
+            </div>
+                <br><br>
+        <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
+                <div class="card">
+                    <img src="https://images2.alphacoders.com/111/1119554.jpg" class="card-img-top" alt="..." width="690" height="380" style="border-radius: 20px;">
+                    <div class="card-body">
+                        <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Avengers: Endgame</h5>
+                        <p class="card-text" style="text-align:center;">Description: After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.</p>
+                <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
+                <a href="https://www.youtube.com/watch?v=TcMBFSGVi1c&t"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
+                        <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star-half'></i>
+        </div>
+                    </div>
+                </div>
+            </div>
+                <br><br>
+            <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
+                <div class="card">
+                    <img src="https://cinemasiren.com/wp-content/uploads/2014/05/AmazingSpiderMan2Banner.jpg" class="card-img-top" alt="..."  width="690" height="380" style="border-radius: 20px;">
+                    <div class="card-body">
+                        <h5 class="card-title" text-align="center" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: The Amazing Spider-Man 2</h5>
+                        <p class="card-text" id="movie-description"  style="text-align:center;">Description: Peter Parker, a shy and brilliant high school student, gains extraordinary spider-like abilities after a fateful bite. As he navigates adolescence, Peter must learn to use his newfound powers for good while facing personal challenges and battling dangerous villains that threaten his city..</p>
+                <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
+                <a href="https://www.youtube.com/watch?v=nbp3Ra3Yp74"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
+                        <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star-half'></i>
+        </div>
+                    </div>
+                </div>
+            </div>
+                <br><br>
+            <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
+                <div class="card">
+                    <img src="https://images2.alphacoders.com/130/1300734.jpg" class="card-img-top" alt="..."  width="690" height="380" style="border-radius: 20px;">
+                    <div class="card-body">
+                        <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Black Adam</h5>
+                        <p class="card-text" style="text-align:center;">Description: Kahndaq, a land ravaged by tyranny. Teth-Adam, a man desperate to save his family, seeks the power of champions. Yet, the magic corrupts, twisting him into Black Adam. Centuries later, archaeologists unleash his fury. Now, Black Adam must confront his past and choose: remain a slave to rage or become the hero Kahndaq needs.</p>
+                <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
+                <a href="https://www.youtube.com/watch?v=X0tOpBuYasI&t"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
+                        <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class="bx bx-star"></i>
+        </div>
+                    </div>
+                </div>
+            </div>
+                <br><br>
+            <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
+                <div class="card">
+                    <img src="https://images.alphacoders.com/130/thumb-1920-1300729.jpg" class="card-img-top" alt="..." width="690" height="380" style="border-radius: 20px;">
+                    <div class="card-body">
+                        <h5 class="card-title"  style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Fast & Furious Presents: Hobbs & Shaw</h5>
+                        <p class="card-text" style="text-align:center;">Description: Worlds collide when DSS agent Luke Hobbs and rogue assassin Deckard Shaw are forced to team up against a cyber-genetically enhanced threat. From Los Angeles to London, these unlikely allies ignite a trail of high-octane action and witty banter.  But can they put their differences aside to save the world?</p>
+                <p style="text-align: center; margin-bottom: 0;">Watch trailer</p>
+                <a href="https://www.youtube.com/watch?v=HZ7PAyCDwEg&t"><i class="fab fa-youtube fa-4x" style="color: #ff0000;"></i></a>
+                        <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star-half'></i>
+        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        """
+    , unsafe_allow_html=True)
 
 def about():
     st.write(
     """
     <style>
-    *{
-    color: #FFFACD;
+    h1,p,h2 {
+        color: #FFFACD;
     }
+
     .center-content {
         text-align: center;
     }
+
     .team-row {
         display: flex;
-        justify-content: center;
-        align-items: flex-start;
+        justify-content: center; /* Center the cards horizontally */
+        align-items: flex-start; /* Align items at the start of the cross axis (top) */
         flex-wrap: wrap;
-        margin-top: 20px;
+        margin-top: 20px; /* Add margin at the top for spacing */
     }
+
     .card {
         width: 250px;
         margin: 10px;
-        background-color:black;
+        background-color: black; /* Set background color to black */
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-radius: 15px;
+        overflow: hidden;
     }
-    a {
-        text-decoration: none;
+
+    .card img {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
     }
+
     .card-body {
-        padding: 15px;
+        padding: 15px; /* Add padding inside the card body for spacing */
     }
+
     .card-title {
+        text-align: center; /* Center the card title */
+        font-size: 1.2em;
+        color: #FFFACD;
+    }
+
+    .card-text {
+        font-size: 1em;
+        color: #FFFACD;
         text-align: center;
     }
+
+    .card a {
+        color: #FFA07A; /* Soft coral color for links */
+        text-decoration: none
+    }
+
+    .card a:hover {
+        color: #FF6347; /* Tomato color for links on hover */
+    }
+
+    .footer {
+        text-align: center;
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #0E1117;
+        color: #FFFACD;
+    }
+
     </style>
-    <div class="center-content">
-        <h1>About Ifterious Movie Success Predictor</h1>
+
+    <div class="center-content"> 
+        <h1 class="textHover">About Ifterious Movie Success Predictor</h1>
         <p>Ifterious Movie Success Predictor is a project aimed at predicting the success of movies based on various factors, including actor performance. Using machine learning and data analysis techniques, we strive to provide insights into what makes a movie successful in today's competitive entertainment industry.</p>
         <h1>Our Mission</h1>
         <p>Our mission is to help filmmakers, producers, and movie enthusiasts understand the dynamics behind a movie's success. By analyzing data such as box office performance, IMDb scores, and actor impact, we aim to empower decision-makers to make informed choices in their movie production and selection processes.</p>
-        <div class="team-row">
+        <h1>Features</h1>
+        <h2>Movie Success Prediction</h2>
+        <p>Our application predicts the success of movies based on historical data and various performance metrics. We use machine learning algorithms to analyze and predict the potential success of movies, helping stakeholders make data-driven decisions.</p>
+        <h2>Actor Score Calculation</h2>
+        <p>We calculate scores for actors based on their past performances and other relevant factors. This helps in understanding the impact of an actor's presence in a movie on its overall success.</p>
+        <h2>Facial Recognition</h2>
+        <p>Our facial recognition feature allows users to upload images of actors, and our system will identify them and provide their performance scores. This feature is powered by advanced deep learning models for accurate and efficient recognition.</p>
+        <h2>Story Generation</h2>
+        <p>Using GPT-2, we offer a story generation feature where users can input a story idea, and our system will generate a complete story based on the given idea and selected genre. This feature leverages state-of-the-art natural language processing techniques to create engaging and creative stories.</p>
+        <div class="team-row">  
             <div class="card">
-                <img src="https://ifterious-tech.netlify.app/main_web/bq-final-project-images--main/IMG_20211027_234719.jpg" class="card-img-top" alt="..." width="250" height="380">
+                <img src="https://ifterious-tech.netlify.app/main_web/bq-final-project-images--main/IMG_20211027_234719.jpg" class="card-img-top" alt="Ifham Ahmed Khan" width="250" height="380">
                 <div class="card-body">
-                    <h5 class="card-title">Name: Ifham Ahmed Khan</h5>
+                    <h5 class="card-title">Ifham Ahmed Khan</h5>
                     <p class="card-text">Email: ifham.khan105@gmail.com</p>
                     <p class="card-text">Phone: +92 316 1611907</p>
                     <p class="card-text">Github: <a href="https://github.com/IfhamAhmedKhan">IfhamAhmedKhan</a></p>
@@ -196,9 +404,9 @@ def about():
                 </div>
             </div>
             <div class="card">
-                <img src="https://i.imgur.com/PEz6M2N.jpeg" class="card-img-top" alt="..." width="250" height="380">
+                <img src="https://i.imgur.com/PEz6M2N.jpeg" class="card-img-top" alt="Asad Iqbal" width="250" height="380">
                 <div class="card-body">
-                    <h5 class="card-title">Name: Asad Iqbal</h5>
+                    <h5 class="card-title">Asad Iqbal</h5>
                     <p class="card-text">Email: asad.iqbal5165@gmail.com</p>
                     <p class="card-text">Phone: +92 340 2671795</p>
                     <p class="card-text">Github: <a href="https://github.com/AsadIqbal5165">AsadIqbal5165</a></p>
@@ -206,9 +414,9 @@ def about():
                 </div>
             </div>
             <div class="card">
-                <img src="https://cdn.vectorstock.com/i/500p/50/18/portrait-photo-icon-vector-31995018.jpg" class="card-img-top" alt="..." width="250" height="380">
+                <img src="https://cdn.vectorstock.com/i/500p/50/18/portrait-photo-icon-vector-31995018.jpg" class="card-img-top" alt="Abdul Aziz" width="250" height="380">
                 <div class="card-body">
-                    <h5 class="card-title">Name: Abdul Aziz</h5>
+                    <h5 class="card-title">Abdul Aziz</h5>
                     <p class="card-text">Email: abdulazizk811@gmail.com</p>
                     <p class="card-text">Phone: +92 337 8057564</p>
                     <p class="card-text">Github: <a href="https://github.com/abdulazizk2">abdulazizk2</a></p>
@@ -217,8 +425,12 @@ def about():
             </div>
         </div>
     </div>
-    """,
-    unsafe_allow_html=True)
+    <div class="footer" style="">
+        <p>&copy; 2024 Ifterious Movie Success Predictor. All rights reserved.</p>
+    </div>
+    """
+    , unsafe_allow_html=True)
+
 
 def YT_Actor_Score():
     st.title("Ifterious Movie Score Prediction")
@@ -293,58 +505,7 @@ def YT_Actor_Score():
             except Exception as e:
                 st.error(f"An error occurred: {str(e)}")
 
-@st.cache_resource
-def load_model_and_tokenizer():
-    model = GPT2LMHeadModel.from_pretrained("gpt2")
-    tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
-    return model, tokenizer
-
-model, tokenizer = load_model_and_tokenizer()
-
-def generate_text(prompt, max_length, temperature, num_beams):
-    try:
-        # Encode the input prompt
-        input_ids = tokenizer.encode(prompt, return_tensors="pt")
-        
-        # Generate the story
-        output = model.generate(
-            input_ids,
-            max_length=max_length,
-            num_return_sequences=1,
-            pad_token_id=tokenizer.eos_token_id,
-            no_repeat_ngram_size=2,
-            do_sample=True,
-            top_k=50,
-            top_p=0.95,
-            temperature=temperature,
-            repetition_penalty=1.2,
-            num_beams=num_beams,
-            early_stopping=False
-        )
-        
-        # Decode the generated text
-        generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
-        return generated_text
-    except Exception as e:
-        return str(e)
-
-def Story_Gen():
-    st.title("Story Generation with GPT-2")
-    
-    # Prompt input from user
-    prompt = st.text_input("Enter a prompt:", "Last night, I made progress on my game development project by")
-    
-    # Hyperparameter sliders
-    max_length = st.slider("Max Length", 50, 500, 200)
-    temperature = st.slider("Temperature", 0.5, 1.5, 1.0)
-    num_beams = st.slider("Number of Beams", 1, 5, 3)
-    
-    if st.button("Generate Text"):
-        with st.spinner("Generating..."):
-            generated_text = generate_text(prompt, max_length, temperature, num_beams)
-            st.write(generated_text)
-
-
+# ---------------------------------
 
 def calculate_actor_score(row):
     imdb_weight = 0.5
@@ -470,7 +631,58 @@ def Actor_Score_FacialRecognition():
         else:
             st.write("No faces detected in one or both images.")
 
+@st.cache_resource
+def load_model(model_name="gpt2"):
+    model = GPT2LMHeadModel.from_pretrained(model_name)
+    tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+    return model, tokenizer
+
+# Load the model and tokenizer
+model, tokenizer = load_model()
+
+# Function to generate a story using GPT-2
+def generate_story(idea, max_length=300, temperature=1.0):
+    input_ids = tokenizer.encode(idea, return_tensors='pt')
+    output = model.generate(input_ids, max_length=max_length, temperature=temperature, no_repeat_ngram_size=2, early_stopping=True)
+    story = tokenizer.decode(output[0], skip_special_tokens=True)
+    return story
+
+# Story Generator Page
+def Story_Gen():
+    st.title("Ifterious Story Generator")
+
+    # Story genre selection
+    genres = ["Fantasy", "Science Fiction", "Romance", "Mystery"]
+    selected_genre = st.selectbox("Choose a genre", genres)
+
+    # Genre-specific prompts
+    genre_prompts = {
+        "Fantasy": "Once upon a time in a magical kingdom,",
+        "Science Fiction": "In a distant future,",
+        "Romance": "On a warm summer day,",
+        "Mystery": "In a small town, a detective discovered,"
+    }
+
+    # Input form for the story idea with default genre prompt
+    idea = st.text_input("Enter your story idea:", genre_prompts[selected_genre])
+
+    # Customizable output settings
+    max_length = st.slider("Story Length", min_value=50, max_value=500, value=300)
+    temperature = st.slider("Creativity", min_value=0.7, max_value=1.5, value=1.0)
+
+    # Button to generate story
+    if st.button("Generate Story"):
+        if idea:
+            with st.spinner('Generating story...'):
+                story = generate_story(idea, max_length, temperature)
+            st.subheader("Generated Story:")
+            st.write(story)
+        else:
+            st.error("Please enter a story idea.")
+
+# call app class object
 app = MultiPage()
+# Add pages
 app.add_page("Home", home)
 app.add_page("YouTube Movie Actor's Score System", YT_Actor_Score)
 app.add_page("Actor Score with Images", Actor_Score_FacialRecognition)
