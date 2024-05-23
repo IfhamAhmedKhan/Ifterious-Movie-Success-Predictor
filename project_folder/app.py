@@ -45,7 +45,7 @@ background-attachment: local;
 
 [data-testid="stSidebar"] > div:first-child {{
 background-image: url("data:image/png;base64,{img}");
-background-size: cover;         /* Ensures the image covers the entire area */
+background-size: cover;
     background-position: center; 
     background-repeat: no-repeat;
 }}
@@ -56,6 +56,22 @@ background: rgba(0,0,0,0);
 
 [data-testid="stToolbar"] {{
 right: 2rem;
+}}
+
+@media only screen and (max-width: 600px) {{
+[data-testid="stSidebar"] > div:first-child {{
+    background-size: cover;
+    background-position: center;
+    }}
+[data-testid="stAppViewContainer"] > .main {{
+    background-size: cover;
+    }}
+[data-testid="stHeader"] {{
+    display: none;
+    }}
+[data-testid="stToolbar"] {{
+    right: 1rem;
+    }}
 }}
 </style>
 """
@@ -171,13 +187,31 @@ p {
 .card-text {
     font-family: 'Great Vibes', cursive;
 }
+.card img {
+    width: 100%;
+}
+@media only screen and (max-width: 600px) {
+    .card-title {
+        font-size: 24px;
+    }
+    .card-text {
+        font-size: 18px;
+    }
+    .card {
+        margin: 0;
+        padding: 0;
+    }
+    .center-content {
+        flex-direction: column;
+    }
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <div class="row center-content">
 <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
         <div class="card" >
-            <img src="https://shop.legendary.com/cdn/shop/files/Dune-min.png" class="card-img-top" alt="..."  width="690" height="380" style="border-radius: 20px;">
+            <img src="https://shop.legendary.com/cdn/shop/files/Dune-min.png" class="card-img-top" alt="Dune: Part One" width="690" height="380" style="border-radius: 20px;">
             <div class="card-body">
                 <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Dune: Part One</h5>
                 <p class="card-text"  style="text-align:center;">Description: A noble family becomes embroiled in a war for control over the galaxy's most valuable asset while its heir becomes troubled by visions of a dark future.</p>
@@ -196,7 +230,7 @@ p {
                 <br><br>
             <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
                 <div class="card">
-                    <img src="https://images.thedirect.com/media/article_full/newpos_QB7hEyO.jpg" class="card-img-top" alt="..." width="690" height="380" style="border-radius: 20px;">
+                    <img src="https://images.thedirect.com/media/article_full/newpos_QB7hEyO.jpg" class="card-img-top" alt="Zack Snyder's Justice League" width="690" height="380" style="border-radius: 20px;">
                     <div class="card-body">
                         <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Zack Snyder's Justice League</h5>
                         <p class="card-text" style="text-align:center;">Description: Determined to ensure that Superman's ultimate sacrifice wasn't in vain, Bruce Wayne recruits a team of metahumans to protect the world from an approaching threat of catastrophic proportions.</p>
@@ -215,7 +249,7 @@ p {
                 <br><br>
                 <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
                 <div class="card">
-                    <img src="https://images8.alphacoders.com/112/1121819.jpg" class="card-img-top" alt="..."   width="690" height="380" style="border-radius: 20px;">
+                    <img src="https://images8.alphacoders.com/112/1121819.jpg" class="card-img-top" alt="Kingsman: The Secret Service" width="690" height="380" style="border-radius: 20px;">
                     <div class="card-body">
                         <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Kingsman: The Secret Service</h5>
                         <p class="card-text" style="text-align:center;">Description: A spy organisation recruits a promising street kid into the agency's training program, while a global threat emerges from a twisted tech genius.</p>
@@ -234,7 +268,7 @@ p {
                 <br><br>
         <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
                 <div class="card">
-                    <img src="https://images2.alphacoders.com/111/1119554.jpg" class="card-img-top" alt="..." width="690" height="380" style="border-radius: 20px;">
+                    <img src="https://images2.alphacoders.com/111/1119554.jpg" class="card-img-top" alt="Avengers: Endgame" width="690" height="380" style="border-radius: 20px;">
                     <div class="card-body">
                         <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Avengers: Endgame</h5>
                         <p class="card-text" style="text-align:center;">Description: After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.</p>
@@ -253,7 +287,7 @@ p {
                 <br><br>
             <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
                 <div class="card">
-                    <img src="https://cinemasiren.com/wp-content/uploads/2014/05/AmazingSpiderMan2Banner.jpg" class="card-img-top" alt="..."  width="690" height="380" style="border-radius: 20px;">
+                    <img src="https://cinemasiren.com/wp-content/uploads/2014/05/AmazingSpiderMan2Banner.jpg" class="card-img-top" alt="The Amazing Spider-Man 2" width="690" height="380" style="border-radius: 20px;">
                     <div class="card-body">
                         <h5 class="card-title" text-align="center" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: The Amazing Spider-Man 2</h5>
                         <p class="card-text" id="movie-description"  style="text-align:center;">Description: Peter Parker, a shy and brilliant high school student, gains extraordinary spider-like abilities after a fateful bite. As he navigates adolescence, Peter must learn to use his newfound powers for good while facing personal challenges and battling dangerous villains that threaten his city..</p>
@@ -272,7 +306,7 @@ p {
                 <br><br>
             <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
                 <div class="card">
-                    <img src="https://images2.alphacoders.com/130/1300734.jpg" class="card-img-top" alt="..."  width="690" height="380" style="border-radius: 20px;">
+                    <img src="https://images2.alphacoders.com/130/1300734.jpg" class="card-img-top" alt="Black Adam" width="690" height="380" style="border-radius: 20px;">
                     <div class="card-body">
                         <h5 class="card-title" style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Black Adam</h5>
                         <p class="card-text" style="text-align:center;">Description: Kahndaq, a land ravaged by tyranny. Teth-Adam, a man desperate to save his family, seeks the power of champions. Yet, the magic corrupts, twisting him into Black Adam. Centuries later, archaeologists unleash his fury. Now, Black Adam must confront his past and choose: remain a slave to rage or become the hero Kahndaq needs.</p>
@@ -291,7 +325,7 @@ p {
                 <br><br>
             <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
                 <div class="card">
-                    <img src="https://images.alphacoders.com/130/thumb-1920-1300729.jpg" class="card-img-top" alt="..." width="690" height="380" style="border-radius: 20px;">
+                    <img src="https://images.alphacoders.com/130/thumb-1920-1300729.jpg" class="card-img-top" alt="Fast & Furious Presents: Hobbs & Shaw" width="690" height="380" style="border-radius: 20px;">
                     <div class="card-body">
                         <h5 class="card-title"  style="border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991">Movie Title: Fast & Furious Presents: Hobbs & Shaw</h5>
                         <p class="card-text" style="text-align:center;">Description: Worlds collide when DSS agent Luke Hobbs and rogue assassin Deckard Shaw are forced to team up against a cyber-genetically enhanced threat. From Los Angeles to London, these unlikely allies ignite a trail of high-octane action and witty banter.  But can they put their differences aside to save the world?</p>
@@ -346,6 +380,7 @@ def about():
     .card img {
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
+        width: 100%;
     }
 
     .card-body {
@@ -381,6 +416,21 @@ def about():
         color: #FFFACD;
     }
 
+    @media only screen and (max-width: 600px) {
+        .team-row {
+            flex-direction: column;
+        }
+        .card {
+            width: 100%;
+            margin: 10px 0;
+        }
+        .card-title {
+            font-size: 1em;
+        }
+        .card-text {
+            font-size: 0.9em;
+        }
+    }
     </style>
 
     <div class="center-content"> 
@@ -399,7 +449,7 @@ def about():
         <p>Using GPT-2, we offer a story generation feature where users can input a story idea, and our system will generate a complete story based on the given idea and selected genre. This feature leverages state-of-the-art natural language processing techniques to create engaging and creative stories.</p>
         <div class="team-row">  
             <div class="card">
-                <img src="https://ifterious-tech.netlify.app/main_web/bq-final-project-images--main/IMG_20211027_234719.jpg" class="card-img-top" alt="Ifham Ahmed Khan" width="250" height="380">
+                <img src="https://ifterious-tech.netlify.app/main_web/bq-final-project-images--main/IMG_20211027_234719.jpg" class="card-img-top" alt="Ifham Ahmed Khan" width="250" height="333">
                 <div class="card-body">
                     <h5 class="card-title">Ifham Ahmed Khan</h5>
                     <p class="card-text">Email: ifham.khan105@gmail.com</p>
@@ -409,7 +459,7 @@ def about():
                 </div>
             </div>
             <div class="card">
-                <img src="https://i.imgur.com/PEz6M2N.jpeg" class="card-img-top" alt="Asad Iqbal" width="250" height="380">
+                <img src="https://i.imgur.com/PEz6M2N.jpeg" class="card-img-top" alt="Asad Iqbal">
                 <div class="card-body">
                     <h5 class="card-title">Asad Iqbal</h5>
                     <p class="card-text">Email: asad.iqbal5165@gmail.com</p>
@@ -419,7 +469,7 @@ def about():
                 </div>
             </div>
             <div class="card">
-                <img src="https://cdn.vectorstock.com/i/500p/50/18/portrait-photo-icon-vector-31995018.jpg" class="card-img-top" alt="Abdul Aziz" width="250" height="380">
+                <img src="https://cdn.vectorstock.com/i/500p/50/18/portrait-photo-icon-vector-31995018.jpg" class="card-img-top" alt="Abdul Aziz">
                 <div class="card-body">
                     <h5 class="card-title">Abdul Aziz</h5>
                     <p class="card-text">Email: abdulazizk811@gmail.com</p>
