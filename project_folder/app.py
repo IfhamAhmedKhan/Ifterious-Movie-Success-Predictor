@@ -131,7 +131,7 @@ def home():
 
     st.markdown('<div style="text-align: left; " ><img src="https://i.imgur.com/PvJhMlM.png" alt="Logo" width="300" height="300" class="animate__animated animate__fadeInLeft"></div>', unsafe_allow_html=True)
 
-    st.markdown('<h1 class="animate__animated animate__fadeIn" style="text-align: left;">Welcome to Ifterious Movie Success Predictor</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="animate__animated animate__flash" style="text-align: left;">Welcome to Ifterious Movie Success Predictor</h1>', unsafe_allow_html=True)
 
     st.markdown("""
 <style>
@@ -168,7 +168,7 @@ p {
 
 
 </style>
-<p class="typing">Explore the world of movies with our project. <br>Analyze movie data, predict actor scores. <br>Let's dive into fascinating insights.</p><br><br><br><br><br><br><br><br><br><br><br><br>
+<p class="typing">Explore the world of movies with our project. <br>Analyze movie data, predict actor scores. <br>Let's dive into fascinating insights.</p><br><br><br><br>
 """, unsafe_allow_html=True)
 
 
@@ -204,10 +204,12 @@ p {
     .center-content {
         flex-direction: column;
     }
+                
 }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+<h1 style="text-align: center; border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991"" class="animate__animated animate__fadeIn ">Blockbuster Movies</h1>
 <div class="row center-content">
 <div class="col-md-4" style= "border: 4px solid #131bbd; border-radius: 25px; padding: 5px;">
         <div class="card" >
@@ -344,6 +346,66 @@ p {
         </div>
         """
     , unsafe_allow_html=True)
+
+    st.markdown("""
+    <hr>
+    <style>
+    .container {
+        display: flex;
+                text-decoration: none;
+        border-radius: 10px;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0);
+        padding: 20px;
+    }
+    .movie-card {
+        position: relative;
+        width: 150px;
+        margin: 10px;
+    }
+    .movie-card img {
+        width: 100%;
+        height: 300px;
+        border-radius: 10px;
+    }
+    .number {
+  position: absolute;
+  top: 20px; 
+  left: 20px; 
+  font-size: 100px;
+  color: rgba(255, 255, 255, 0.1);
+  font-weight: bold;
+}
+    .label {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        background-color: red;
+        color: white;
+        padding: 5px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 12px;
+    }
+</style>
+<h1 style="text-align: center; border: 2px solid black; border-radius: 25px; padding: 5px;margin: 5px; background-color: #168991" class="animate__animated animate__fadeIn ">New Trailer</h1>
+<div class="container">
+    <div class="movie-card">
+        <a href="https://www.youtube.com/watch?v=__2bjWbetsA&t" ><img src="https://media2.firstshowing.net/firstshowing/img16/VenomLastdancePosternewbig5991.jpg" alt="Movie 1"></a>
+        <div class="label">Recently Added</div>
+    </div>
+    <div class="movie-card">
+        <a href="https://www.youtube.com/watch?v=xy8aJw1vYHo&t"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Joker_-_Folie_%C3%A0_Deux_poster.jpg/220px-Joker_-_Folie_%C3%A0_Deux_poster.jpg" alt="Movie 2"></a>
+        <div class="label">Recently Added</div>
+    </div>
+    <div class="movie-card">
+        <a href="https://www.youtube.com/watch?v=5a09yJU-mCI"><img src="https://m.media-amazon.com/images/M/MV5BNzQ3NDhmZjMtYjQ4ZS00MmFhLTliOGMtZmQ0MWQ3ZDA3MjZhXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg" alt="Movie 3"></a>
+        <div class="label">Recently Added</div>
+    </div>
+</div>
+           """
+    , unsafe_allow_html=True)      
 
 def about():
     st.write(
