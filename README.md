@@ -37,10 +37,8 @@ Welcome to the Ifterious Movie Success Predictor, a project developed for my fin
 - **About**: Provides information about the project and its purpose.
 - **Contact**: Displays contact information.
 
-# Contributors
+# Contributor
 - Ifham Ahmed Khan
-- Asad Iqbal
-- Abdul Aziz
 
 # License
 This project is licensed under the MIT License - see the LICENSE file for details.
